@@ -1,0 +1,224 @@
+@import "tailwindcss";
+
+:root {
+  --background: #000000;
+  --foreground: #ffffff;
+  
+  /* Modern B/W theme colors with zinc */
+  --black: #000000;
+  --zinc-900: #18181b;
+  --zinc-800: #27272a;
+  --zinc-700: #3f3f46;
+  --zinc-600: #52525b;
+  --zinc-500: #71717a;
+  --zinc-400: #a1a1aa;
+  --zinc-300: #d4d4d8;
+  --white: #ffffff;
+  
+  /* RGB versions for opacity usage */
+  --black-rgb: 0, 0, 0;
+  --white-rgb: 255, 255, 255;
+  --zinc-900-rgb: 24, 24, 27;
+  --zinc-800-rgb: 39, 39, 42;
+  --zinc-700-rgb: 63, 63, 70;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  
+  /* Modern B/W theme colors for Tailwind */
+  --color-black-custom: var(--black);
+  --color-zinc-900-custom: var(--zinc-900);
+  --color-zinc-800-custom: var(--zinc-800);
+  --color-white-custom: var(--white);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Modern B/W utility classes */
+.text-white-custom {
+  color: var(--white);
+}
+
+.text-black-custom {
+  color: var(--black);
+}
+
+.text-zinc-900-custom {
+  color: var(--zinc-900);
+}
+
+.text-zinc-800-custom {
+  color: var(--zinc-800);
+}
+
+.text-zinc-700-custom {
+  color: var(--zinc-700);
+}
+
+.text-zinc-600-custom {
+  color: var(--zinc-600);
+}
+
+.text-zinc-500-custom {
+  color: var(--zinc-500);
+}
+
+.text-zinc-400-custom {
+  color: var(--zinc-400);
+}
+
+.text-zinc-300-custom {
+  color: var(--zinc-300);
+}
+
+.bg-black-custom {
+  background-color: var(--black);
+}
+
+.bg-white-custom {
+  background-color: var(--white);
+}
+
+.bg-zinc-900-custom {
+  background-color: var(--zinc-900);
+}
+
+.bg-zinc-800-custom {
+  background-color: var(--zinc-800);
+}
+
+.bg-zinc-700-custom {
+  background-color: var(--zinc-700);
+}
+
+/* Opacity variations using RGB values */
+.bg-black-5 {
+  background-color: rgba(var(--black-rgb), 0.05);
+}
+
+.bg-black-10 {
+  background-color: rgba(var(--black-rgb), 0.1);
+}
+
+.bg-black-20 {
+  background-color: rgba(var(--black-rgb), 0.2);
+}
+
+.bg-black-50 {
+  background-color: rgba(var(--black-rgb), 0.5);
+}
+
+.bg-black-80 {
+  background-color: rgba(var(--black-rgb), 0.8);
+}
+
+.bg-white-5 {
+  background-color: rgba(var(--white-rgb), 0.05);
+}
+
+.bg-white-10 {
+  background-color: rgba(var(--white-rgb), 0.1);
+}
+
+.bg-white-20 {
+  background-color: rgba(var(--white-rgb), 0.2);
+}
+
+.bg-zinc-900-50 {
+  background-color: rgba(var(--zinc-900-rgb), 0.5);
+}
+
+.bg-zinc-800-50 {
+  background-color: rgba(var(--zinc-800-rgb), 0.5);
+}
+
+/* Hover state utilities */
+.hover-text-white:hover {
+  color: var(--white);
+}
+
+.hover-text-black:hover {
+  color: var(--black);
+}
+
+.hover-text-zinc-300:hover {
+  color: var(--zinc-300);
+}
+
+.hover-text-zinc-400:hover {
+  color: var(--zinc-400);
+}
+
+.hover-bg-white:hover {
+  background-color: var(--white);
+}
+
+.hover-bg-black:hover {
+  background-color: var(--black);
+}
+
+.hover-bg-zinc-800:hover {
+  background-color: var(--zinc-800);
+}
+
+.hover-bg-zinc-700:hover {
+  background-color: var(--zinc-700);
+}
+
+.hover-bg-white-10:hover {
+  background-color: rgba(var(--white-rgb), 0.1);
+}
+
+.hover-bg-zinc-800-50:hover {
+  background-color: rgba(var(--zinc-800-rgb), 0.5);
+}
+
+/* Transition utilities */
+.duration-300 {
+  transition-duration: 300ms;
+}
+
+.duration-700 {
+  transition-duration: 700ms;
+}
+
+.transition-colors {
+  transition-property: color, background-color, border-color;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+/* Content container with wider max-width for tables */
+.content-container {
+  max-width: 1400px; /* Increased from 1024px (max-w-4xl) */
+}
+
+/* Modern backdrop blur utilities */
+.backdrop-blur-sm {
+  backdrop-filter: blur(4px);
+}
+
+.backdrop-blur {
+  backdrop-filter: blur(8px);
+}
+
+/* Modern shadow utilities for dark theme */
+.shadow-2xl-dark {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+}
+
+.shadow-xl-dark {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
+}
+
+.shadow-lg-dark {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+}
