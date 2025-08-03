@@ -7,23 +7,78 @@ import remarkGfm from 'remark-gfm'
 
 const contentDirectory = path.join(process.cwd(), 'content')
 
+// Type definitions
+export interface ContentData {
+  slug: string
+  title: string
+  contentHtml: string
+  category?: string
+  nav_order?: number
+  parent?: string
+  description?: string
+  [key: string]: any
+}
+
+export interface TableOfContentsItem {
+  level: number
+  id: string
+  title: string
+  href: string
+}
+
+export interface SearchIndexItem {
+  id: string
+  type: 'page' | 'section'
+  title: string
+  slug: string
+  path: string
+  category?: string
+  parent?: string
+  content?: string
+  description?: string
+  searchText: string
+  pageTitle?: string
+  sectionId?: string
+  level?: number
+}
+
+export interface NavigationItem {
+  id: string
+  title: string
+  icon?: string
+  path?: string
+  description?: string
+  expandable?: boolean
+  children?: NavigationItem[]
+}
+
+export interface Heading {
+  level: number
+  title: string
+  id: string
+  href: string
+}
+
 // Map Jekyll filenames to Next.js friendly slugs
-const fileNameMapping = {
+const fileNameMapping: Record<string, string> = {
+  'circom.md': 'change-circom-prime-field',
+  'fiat-shamir.md': 'fiat-shamir-pitfalls',
   'Delegatecall-History.md': 'delegatecall-history',
-  'Proxies-List.md': 'proxies-list', 
-  'Proxies-Storage.md': 'proxies-storage',
-  'Proxies-Table.md': 'proxies-table',
   'Proxy-Basics.md': 'proxy-basics',
   'Proxy-Identification.md': 'proxy-identification',
   'Security-Guide.md': 'security-guide'
 }
 
-export function getAllContentSlugs() {
+export function getAllContentSlugs(): string[] {
   try {
     const fileNames = fs.readdirSync(contentDirectory)
     return fileNames
       .filter((name) => name.endsWith('.md'))
       .map((fileName) => {
+        // Check if there's a specific mapping for this file
+        if (fileNameMapping[fileName]) {
+          return fileNameMapping[fileName]
+        }
         // Convert filename to slug
         return fileName.replace(/\.md$/, '').toLowerCase()
           .replace(/\s+/g, '-')
@@ -35,9 +90,14 @@ export function getAllContentSlugs() {
   }
 }
 
-export async function getContentData(slug) {
+export async function getContentData(slug: string): Promise<ContentData | null> {
   try {
-    const fileName = `${slug}.md`
+    // Find the actual filename for this slug (reverse mapping)
+    const reverseMapping = Object.fromEntries(
+      Object.entries(fileNameMapping).map(([file, mappedSlug]) => [mappedSlug, file])
+    )
+    
+    const fileName = reverseMapping[slug] || `${slug}.md`
     const fullPath = path.join(contentDirectory, fileName)
     
     if (!fs.existsSync(fullPath)) {
@@ -74,7 +134,7 @@ export async function getContentData(slug) {
 }
 
 // Enhanced HTML post-processing for better styling and Jekyll-style TOC
-function enhanceMarkdownHtml(html) {
+function enhanceMarkdownHtml(html: string): string {
   // Process Jekyll-style table of contents
   html = processJekyllTOC(html);
   
@@ -142,7 +202,7 @@ function enhanceMarkdownHtml(html) {
 }
 
 // Process Jekyll-style {:toc} table of contents
-function processJekyllTOC(html) {
+function processJekyllTOC(html: string): string {
   // Look for Jekyll TOC pattern: 1. TOC\n{:toc} or just {:toc}
   const tocPattern = /1\.\s*TOC\s*\{:toc\}|\{:toc\}/gi;
   
@@ -152,8 +212,7 @@ function processJekyllTOC(html) {
   
   // Extract all headings from the HTML (after the TOC marker)
   const headingRegex = /<h([2-6])[^>]*>(.*?)<\/h[2-6]>/g;
-  const headings = [];
-  let match;
+  const headings: Heading[] = [];
   
   // Reset regex
   html.replace(headingRegex, (fullMatch, level, title) => {
@@ -213,9 +272,9 @@ function processJekyllTOC(html) {
 }
 
 // Generate table of contents from HTML
-export function generateTableOfContents(contentHtml) {
+export function generateTableOfContents(contentHtml: string): TableOfContentsItem[] {
   const headingRegex = /<h([2-6])[^>]*id="([^"]*)"[^>]*>(.*?)<\/h[2-6]>/g;
-  const toc = [];
+  const toc: TableOfContentsItem[] = [];
   let match;
   
   while ((match = headingRegex.exec(contentHtml)) !== null) {
@@ -234,7 +293,7 @@ export function generateTableOfContents(contentHtml) {
   return toc;
 }
 
-export async function getAllContent() {
+export async function getAllContent(): Promise<ContentData[]> {
   const slugs = getAllContentSlugs()
   const allContent = await Promise.all(
     slugs.map(async (slug) => {
@@ -244,7 +303,7 @@ export async function getAllContent() {
   
   // Filter out null results and sort by nav_order if available
   return allContent
-    .filter(Boolean)
+    .filter((content): content is ContentData => content !== null)
     .sort((a, b) => {
       if (a.nav_order && b.nav_order) {
         return a.nav_order - b.nav_order
@@ -254,7 +313,7 @@ export async function getAllContent() {
 }
 
 // Extract text content from HTML
-function stripHtml(html) {
+function stripHtml(html: string): string {
   return html
     .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
     .replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '')
@@ -264,13 +323,13 @@ function stripHtml(html) {
 }
 
 // Extract sections from HTML content
-function extractSections(contentHtml, pageTitle, pageSlug) {
-  const sections = []
+function extractSections(contentHtml: string, pageTitle: string, pageSlug: string): SearchIndexItem[] {
+  const sections: SearchIndexItem[] = []
   const headingRegex = /<h([2-6])[^>]*>(.*?)<\/h[2-6]>/gi
-  let match
-  let sectionIndex = 0
+  const matches = [...contentHtml.matchAll(headingRegex)]
   
-  while ((match = headingRegex.exec(contentHtml)) !== null) {
+  for (let i = 0; i < matches.length; i++) {
+    const match = matches[i]
     const level = parseInt(match[1])
     const headingHtml = match[2]
     const headingText = stripHtml(headingHtml)
@@ -282,19 +341,24 @@ function extractSections(contentHtml, pageTitle, pageSlug) {
         .replace(/-+/g, '-')
         .replace(/^-|-$/g, '')
       
+      // Extract content between this heading and the next heading
+      const currentHeadingEnd = match.index! + match[0].length
+      const nextHeadingStart = i < matches.length - 1 ? matches[i + 1].index! : contentHtml.length
+      const sectionContent = contentHtml.substring(currentHeadingEnd, nextHeadingStart)
+      const sectionText = stripHtml(sectionContent)
+      
       sections.push({
-        id: `${pageSlug}-section-${sectionIndex}`,
+        id: `${pageSlug}-section-${i}`,
         type: 'section',
         title: headingText,
         pageTitle,
         slug: pageSlug,
         sectionId,
         level,
-        content: headingText,
+        content: `${headingText} ${sectionText}`.substring(0, 500), // Limit content length
         path: `/${pageSlug}#${sectionId}`,
-        searchText: `${headingText} ${pageTitle}`.toLowerCase()
+        searchText: `${headingText} ${sectionText} ${pageTitle}`.toLowerCase()
       })
-      sectionIndex++
     }
   }
   
@@ -302,9 +366,9 @@ function extractSections(contentHtml, pageTitle, pageSlug) {
 }
 
 // Build comprehensive search index
-export async function buildSearchIndex() {
+export async function buildSearchIndex(): Promise<SearchIndexItem[]> {
   const allContent = await getAllContent()
-  const index = []
+  const index: SearchIndexItem[] = []
   
   allContent.forEach(page => {
     if (!page) return
@@ -334,105 +398,101 @@ export async function buildSearchIndex() {
 }
 
 // Categorize content based on slug patterns
-function getCategory(slug) {
-  if (slug.includes('security') || slug.includes('vuln')) return 'security'
-  if (slug.includes('proxy-basics')) return 'fundamentals'
-  if (slug.includes('identification')) return 'analysis'
-  if (slug.includes('deep-dive') || slug.includes('storage') || slug.includes('table') || slug.includes('list')) return 'advanced'
-  if (slug.includes('delegatecall') || slug.includes('history')) return 'technical'
+function getCategory(slug: string): string {
   if (slug === 'home') return 'overview'
+  if (slug === 'about') return 'personal'
+  if (slug === 'career') return 'professional'
+  if (slug === 'learning') return 'education'
+  if (slug === 'projects') return 'portfolio'
+  if (slug === 'misc') return 'community'
+  if (slug === 'blog') return 'blog'
+  if (slug === 'contact') return 'contact'
   return 'general'
 }
 
 // Navigation structure builder
-export function buildNavigation(content) {
-  const navigationItems = [
+export function buildNavigation(content: ContentData[]): NavigationItem[] {
+  const navigationItems: NavigationItem[] = [
     {
       id: 'home',
-      title: 'yAcademy Proxies Research',
+      title: 'Home',
       icon: 'Book',
       path: '/',
-      description: 'Introduction to proxy patterns and research goals'
+      description: 'Welcome to my portfolio'
     },
     {
-      id: 'proxy-basics',
-      title: 'Proxy Basics',
+      id: 'about',
+      title: 'About',
       icon: 'Code',
-      path: '/proxy-basics',
-      description: 'Fundamental concepts of proxy patterns'
+      path: '/about',
+      description: 'Learn more about me'
     },
     {
-      id: 'proxies-deep-dive',
-      title: 'Proxies Deep Dive',
+      id: 'career',
+      title: 'Career',
       icon: 'FileText',
-      expandable: true,
-      children: [
-        {
-          id: 'proxies-list',
-          title: 'Proxies List',
-          path: '/proxies-list'
-        },
-        {
-          id: 'proxies-storage',
-          title: 'Proxies Storage',
-          path: '/proxies-storage'
-        },
-        {
-          id: 'proxies-table',
-          title: 'Proxies Table',
-          path: '/proxies-table'
-        },
-        {
-          id: 'delegatecall-history',
-          title: 'History of Callcode and Delegatecall',
-          path: '/delegatecall-history'
-        }
-      ]
+      path: '/career',
+      description: 'Professional experience'
     },
     {
-      id: 'security-guide',
-      title: 'Security Guide to Proxy Vulns',
+      id: 'learning',
+      title: 'Learning',
+      icon: 'FileText',
+      path: '/learning',
+      description: 'Educational background'
+    },
+    {
+      id: 'projects',
+      title: 'Projects',
+      icon: 'FileText',
+      path: '/projects',
+      description: 'My development projects'
+    },
+    {
+      id: 'misc',
+      title: 'Misc',
+      icon: 'FileText',
+      path: '/misc',
+      description: 'Talks and community'
+    },
+    {
+      id: 'blog',
+      title: 'Blog',
+      icon: 'FileText',
+      path: '/blog',
+      description: 'Articles and content'
+    },
+    {
+      id: 'contact',
+      title: 'Contact',
       icon: 'Shield',
-      expandable: true,
-      children: [
-        {
-          id: 'proxy-identification',
-          title: 'Proxy Identification Guide',
-          path: '/proxy-identification'
-        }
-      ]
+      path: '/contact',
+      description: 'Get in touch'
     }
   ]
   
   // Filter navigation items based on available content
   return navigationItems.filter(item => {
-    if (item.children) {
-      item.children = item.children.filter(child => 
-        content.some(c => c.slug === child.id)
-      )
-      return item.children.length > 0
-    }
-    return content.some(c => c.slug === item.id) || item.id === 'home'
+    return content.some(c => c.slug === item.id) || ['home', 'about', 'career', 'learning', 'projects', 'misc', 'blog', 'contact'].includes(item.id)
   })
 }
 
 // Fallback content for when markdown files aren't available
-export function getFallbackContent() {
+export function getFallbackContent(): ContentData[] {
   return [
     {
       slug: 'home',
-      title: 'yAcademy Proxies Research',
+      title: 'Welcome',
       category: 'overview',
       contentHtml: `
-        <p>In Web3, the Proxy or Proxy Delegate is a <a href="https://en.wikipedia.org/wiki/Delegation_pattern">delegation pattern</a> commonly used to introduce upgradability in smart contracts. While it can be extremely powerful, it is also commonly misunderstood — leading to incorrect implementations and security issues.</p>
+        <h1>Welcome to My Portfolio</h1>
+        <p>Hi, I'm Nullity, a passionate developer and technology enthusiast.</p>
         
-        <p>This research effort compiles proxy knowledge with the goal of improving the correctness of proxy implementations and providing a useful resource for security reviews of proxy contracts. By sharing knowledge, we hope to improve the security of smart contracts and the greater ecosystem.</p>
-        
-        <h2>Research Goals</h2>
-        <p>Improve the correctness of proxy implementations and provide useful resources for security reviews of proxy contracts.</p>
+        <h2>What I Do</h2>
+        <p>I specialize in building modern web applications and exploring cutting-edge technologies.</p>
         
         <h2>Getting Started</h2>
-        <p>Browse the documentation using the sidebar navigation or use the search functionality to find specific topics.</p>
+        <p>Browse through my projects and feel free to get in touch if you'd like to collaborate.</p>
       `
     }
   ]

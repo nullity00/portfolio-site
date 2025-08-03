@@ -1,9 +1,67 @@
 'use client';
 
 import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
-import { Search, ChevronRight, ChevronDown, Book, Shield, Code, FileText, ExternalLink, Github, Menu, X, List } from 'lucide-react';
+import { Search, ChevronRight, ChevronDown, Book, Shield, Code, FileText, ExternalLink, Github, Menu, X, List, LucideIcon } from 'lucide-react';
 import dynamic from 'next/dynamic';
+import { ContentData, SearchIndexItem } from '../../lib/content';
 import '../markdown.css';
+
+// Type definitions
+interface SearchResult extends SearchIndexItem {
+  highlightedContent: string;
+}
+
+interface SidebarItem {
+  id: string;
+  title: string;
+  icon: LucideIcon;
+  children?: SidebarChildItem[];
+}
+
+interface SidebarChildItem {
+  id: string;
+  title: string;
+}
+
+interface TOCItem {
+  href: string;
+  title: string;
+}
+
+interface SearchComponentProps {
+  searchQuery: string;
+  setSearchQuery: (query: string) => void;
+  searchResults: SearchResult[];
+  isSearchFocused: boolean;
+  setIsSearchFocused: (focused: boolean) => void;
+  handleSearchResultClick: (result: SearchResult) => void;
+  searchInputRef: React.RefObject<HTMLInputElement | null>;
+  searchDropdownRef: React.RefObject<HTMLDivElement | null>;
+}
+
+interface MobileMenuComponentProps {
+  isMobileMenuOpen: boolean;
+  setIsMobileMenuOpen: (open: boolean) => void;
+  sidebarItems: SidebarItem[];
+  currentPage: string;
+  setCurrentPage: (page: string) => void;
+  expandedSections: Record<string, boolean>;
+  toggleSection: (sectionId: string) => void;
+}
+
+interface SidebarItemProps {
+  item: SidebarItem;
+  currentPage: string;
+  setCurrentPage: (page: string) => void;
+  expandedSections: Record<string, boolean>;
+  toggleSection: (sectionId: string) => void;
+  onItemClick?: () => void;
+}
+
+interface PortfolioSiteProps {
+  initialContent?: ContentData[];
+  initialSearchIndex?: SearchIndexItem[];
+}
 
 // Separate client-only components to prevent hydration issues
 const ClientOnlySearch = dynamic(() => Promise.resolve(SearchComponent), {
@@ -38,7 +96,7 @@ function SearchComponent({
   handleSearchResultClick,
   searchInputRef,
   searchDropdownRef
-}) {
+}: SearchComponentProps) {
   const handleSearchFocus = useCallback(() => {
     setIsSearchFocused(true);
   }, [setIsSearchFocused]);
@@ -111,7 +169,7 @@ function MobileMenuComponent({
   setCurrentPage, 
   expandedSections, 
   toggleSection 
-}) {
+}: MobileMenuComponentProps) {
   const handleClose = useCallback(() => {
     setIsMobileMenuOpen(false);
   }, [setIsMobileMenuOpen]);
@@ -180,14 +238,14 @@ function SidebarItem({
   expandedSections, 
   toggleSection, 
   onItemClick 
-}) {
+}: SidebarItemProps) {
   const handleItemClick = useCallback(() => {
     setCurrentPage(item.id);
     // Use the passed onItemClick with transition delay
     onItemClick?.();
   }, [item.id, setCurrentPage, onItemClick]);
 
-  const handleToggleSection = useCallback((e) => {
+  const handleToggleSection = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
     toggleSection(item.id);
   }, [item.id, toggleSection]);
@@ -252,7 +310,7 @@ function SidebarItem({
 }
 
 // Main component
-const ProxiesSiteDark = ({ 
+const PortfolioSite: React.FC<PortfolioSiteProps> = ({ 
   initialContent = [], 
   initialSearchIndex = []
 }) => {
@@ -262,18 +320,15 @@ const ProxiesSiteDark = ({
     initialContent.length > 0 ? initialContent[0].slug : 'home'
   );
   const [searchQuery, setSearchQuery] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showTableOfContents, setShowTableOfContents] = useState(false);
-  const [expandedSections, setExpandedSections] = useState({
-    'proxies-deep-dive': true,
-    'security-guide': true
-  });
+  const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({});
   
   // Refs
-  const searchInputRef = useRef(null);
-  const searchDropdownRef = useRef(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const searchDropdownRef = useRef<HTMLDivElement>(null);
   
   // Client-side hydration fix
   useEffect(() => {
@@ -281,10 +336,27 @@ const ProxiesSiteDark = ({
   }, []);
   
   // Utility functions (defined early to avoid initialization issues)
-  const highlightSearchTerm = useCallback((text, term) => {
+  const highlightSearchTerm = useCallback((text: string, term: string): string => {
     if (!term) return text;
-    const regex = new RegExp(`(${term})`, 'gi');
-    return text.replace(regex, '<mark>$1</mark>');
+    
+    // Find the first occurrence of the search term
+    const lowerText = text.toLowerCase();
+    const lowerTerm = term.toLowerCase();
+    const index = lowerText.indexOf(lowerTerm);
+    
+    if (index === -1) return text;
+    
+    // Extract context around the term (150 characters before and after)
+    const start = Math.max(0, index - 150);
+    const end = Math.min(text.length, index + term.length + 150);
+    
+    let snippet = text.substring(start, end);
+    if (start > 0) snippet = '...' + snippet;
+    if (end < text.length) snippet = snippet + '...';
+    
+    // Highlight the search term
+    const regex = new RegExp(`(${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+    return snippet.replace(regex, '<mark class="search-highlight">$1</mark>');
   }, []);
   
   // Memoized search index
@@ -293,12 +365,13 @@ const ProxiesSiteDark = ({
       return initialSearchIndex;
     }
     if (initialContent.length > 0) {
-      const index = [];
+      const index: SearchIndexItem[] = [];
       initialContent.forEach(page => {
         index.push({
           id: page.slug,
           type: 'page',
           title: page.title,
+          slug: page.slug,
           path: `/${page.slug}`,
           category: page.category || 'general',
           content: page.contentHtml ? page.contentHtml.replace(/<[^>]*>/g, '') : '',
@@ -323,7 +396,7 @@ const ProxiesSiteDark = ({
       .slice(0, 10)
       .map(item => ({
         ...item,
-        highlightedContent: highlightSearchTerm(item.content, searchQuery)
+        highlightedContent: highlightSearchTerm(item.content || '', searchQuery)
       }));
     
     setSearchResults(results);
@@ -333,11 +406,12 @@ const ProxiesSiteDark = ({
   useEffect(() => {
     if (!isClient) return;
     
-    const handleClickOutside = (event) => {
+    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+      const target = event.target as Node;
       if (
         searchDropdownRef.current &&
-        !searchDropdownRef.current.contains(event.target) &&
-        !searchInputRef.current?.contains(event.target)
+        !searchDropdownRef.current.contains(target) &&
+        !searchInputRef.current?.contains(target)
       ) {
         setIsSearchFocused(false);
         setSearchQuery('');
@@ -359,8 +433,8 @@ const ProxiesSiteDark = ({
   useEffect(() => {
     if (!isClient) return;
     
-    const handleKeyDown = (e) => {
-      if (e.key === '/' && e.target.tagName !== 'INPUT') {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === '/' && (e.target as HTMLElement).tagName !== 'INPUT') {
         e.preventDefault();
         searchInputRef.current?.focus();
       }
@@ -376,110 +450,178 @@ const ProxiesSiteDark = ({
   }, [isClient]);
   
   // Other utility functions
-  const toggleSection = useCallback((sectionId) => {
+  const toggleSection = useCallback((sectionId: string) => {
     setExpandedSections(prev => ({
       ...prev,
       [sectionId]: !prev[sectionId]
     }));
   }, []);
   
-  const handleSearchResultClick = useCallback((result) => {
+  const handleSearchResultClick = useCallback((result: SearchResult) => {
     const pageSlug = result.id.split('-section-')[0];
     setCurrentPage(pageSlug);
     setSearchQuery('');
     setIsSearchFocused(false);
+    
+    // If it's a section result, scroll to that section after a brief delay
+    if (result.type === 'section' && result.sectionId) {
+      setTimeout(() => {
+        const element = document.getElementById(result.sectionId!);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          // Add a brief highlight effect
+          element.style.backgroundColor = '#374151';
+          setTimeout(() => {
+            element.style.backgroundColor = '';
+          }, 2000);
+        }
+      }, 100);
+    }
   }, []);
   
-  // Memoized sidebar items
-  const sidebarItems = useMemo(() => [
-    { id: 'home', title: 'yAcademy Proxies Research', icon: Book },
-    { id: 'proxy-basics', title: 'Proxy Basics', icon: Code },
-    { 
-      id: 'proxies-deep-dive', 
-      title: 'Proxies Deep Dive', 
-      icon: FileText,
-      children: [
-        { id: 'proxies-storage', title: 'Proxies Storage' },
-        { id: 'proxies-table', title: 'Proxies Table' },
-        { id: 'delegatecall-history', title: 'History of Callcode and Delegatecall' }
-      ]
-    },
-    { 
-      id: 'security-guide', 
-      title: 'Security Guide to Proxy Vulns', 
-      icon: Shield,
-      children: [
-        { id: 'proxy-identification', title: 'Proxy Identification Guide' }
-      ]
+  // Memoized sidebar items - show blog content when available
+  const sidebarItems = useMemo<SidebarItem[]>(() => {
+    // If we have blog content, create sidebar items from blog posts
+    if (initialContent && initialContent.length > 0) {
+      return initialContent.map(content => ({
+        id: content.slug,
+        title: content.title,
+        icon: FileText
+      }));
     }
-  ], []);
+    
+    // Fallback to navigation items
+    return [
+      { id: 'home', title: 'Home', icon: Book },
+      { id: 'about', title: 'About', icon: Code },
+      { id: 'career', title: 'Career', icon: FileText },
+      { id: 'learning', title: 'Learning', icon: FileText },
+      { id: 'projects', title: 'Projects', icon: FileText },
+      { id: 'misc', title: 'Misc', icon: FileText },
+      { id: 'blog', title: 'Blog', icon: FileText },
+      { id: 'contact', title: 'Contact', icon: Shield }
+    ];
+  }, [initialContent]);
   
   // Get current page data
-  const getCurrentPageData = useCallback(() => {
+  const getCurrentPageData = useCallback((): ContentData => {
     if (initialContent.length > 0) {
       const page = initialContent.find(page => page.slug === currentPage);
       if (page) return page;
     }
     
-    // Handle special parent pages
-    if (currentPage === 'proxies-deep-dive') {
-      const proxiesListPage = initialContent.find(page => page.slug === 'proxies-list');
-      if (proxiesListPage) {
-        return {
-          ...proxiesListPage,
-          slug: 'proxies-deep-dive',
-          title: 'Proxies Deep Dive'
-        };
-      }
+    // Handle other pages
+    if (currentPage === 'blog') {
+      return {
+        slug: 'blog',
+        title: 'Blog',
+        category: 'blog',
+        contentHtml: `
+          <h2>Blog</h2>
+          <p>Welcome to my blog where I share insights and experiences from my development journey.</p>
+        `,
+        description: 'Articles and content from my development journey'
+      };
     }
     
-    if (currentPage === 'security-guide') {
-      const securityGuidePage = initialContent.find(page => page.slug === 'security-guide');
-      if (securityGuidePage) {
-        return securityGuidePage;
-      }
-      
+    if (currentPage === 'about') {
       return {
-        slug: 'security-guide',
-        title: 'Security Guide to Proxy Vulns',
-        category: 'security',
+        slug: 'about',
+        title: 'About',
+        category: 'personal',
         contentHtml: `
-          <p>Note: If you are unsure which proxy type is in the scope of your audit or security review, see the <a href="/proxy-identification">proxy identification guide</a>.</p>
-          
-          <div class="jekyll-toc">
-            <h2>Table of contents</h2>
-            <ol class="toc-list">
-              <li class="toc-item"><a href="#uninitialized-proxy-vulnerability" class="toc-link">Uninitialized Proxy Vulnerability</a></li>
-              <li class="toc-item"><a href="#storage-collision-vulnerability" class="toc-link">Storage Collision Vulnerability</a></li>
-              <li class="toc-item"><a href="#function-clashing-vulnerability" class="toc-link">Function Clashing Vulnerability</a></li>
-              <li class="toc-item"><a href="#metamorphic-contract-rug-vulnerability" class="toc-link">Metamorphic Contract Rug Vulnerability</a></li>
-            </ol>
-          </div>
-          
-          <p>This section contains detailed information about various proxy security vulnerabilities that auditors should be aware of.</p>
+          <h2>About Me</h2>
+          <p>Math graduate with a strong interest in applied cryptography, zero knowledge proofs & its application in the Ethereum ecosystem.</p>
         `,
-        description: 'Comprehensive security guide covering common proxy vulnerabilities'
+        description: 'Learn more about my background and experience'
+      };
+    }
+    
+    if (currentPage === 'career') {
+      return {
+        slug: 'career',
+        title: 'Career',
+        category: 'professional',
+        contentHtml: `
+          <h2>Career</h2>
+          <p>Professional experience in ZK research, blockchain development, and cryptography.</p>
+        `,
+        description: 'Professional experience and work history'
+      };
+    }
+    
+    if (currentPage === 'learning') {
+      return {
+        slug: 'learning',
+        title: 'Learning',
+        category: 'education',
+        contentHtml: `
+          <h2>Learning</h2>
+          <p>Educational background including ZK bootcamps, cryptography courses, and formal mathematics education.</p>
+        `,
+        description: 'Educational background and continuous learning'
+      };
+    }
+    
+    if (currentPage === 'projects') {
+      return {
+        slug: 'projects',
+        title: 'Projects',
+        category: 'portfolio',
+        contentHtml: `
+          <h2>Projects</h2>
+          <p>Portfolio of ZK projects, Solidity implementations, audit reports, and blockchain applications.</p>
+        `,
+        description: 'A showcase of my development projects'
+      };
+    }
+    
+    if (currentPage === 'misc') {
+      return {
+        slug: 'misc',
+        title: 'Misc',
+        category: 'community',
+        contentHtml: `
+          <h2>Misc</h2>
+          <p>Talks, community involvement, and other activities in the ZK and blockchain space.</p>
+        `,
+        description: 'Talks and community involvement'
+      };
+    }
+    
+    if (currentPage === 'contact') {
+      return {
+        slug: 'contact',
+        title: 'Contact',
+        category: 'contact',
+        contentHtml: `
+          <h2>Get in Touch</h2>
+          <p>Feel free to reach out for collaborations, questions about ZK circuits, or just to say hi!</p>
+        `,
+        description: 'Contact information and ways to reach me'
       };
     }
     
     return {
       slug: 'home',
-      title: 'yAcademy Proxies Research',
+      title: 'Nullity',
       category: 'overview',
       contentHtml: `
-        <p>In Web3, the Proxy or Proxy Delegate is a <a href="https://en.wikipedia.org/wiki/Delegation_pattern">delegation pattern</a> commonly used to introduce upgradability in smart contracts.</p>
-        <p>This research effort compiles proxy knowledge with the goal of improving the correctness of proxy implementations and providing a useful resource for security reviews of proxy contracts.</p>
+        <h1>Welcome to My Portfolio</h1>
+        <p>Hi, I'm Nullity, a passionate developer and technology enthusiast.</p>
+        <h2>What I Do</h2>
+        <p>I specialize in building modern web applications and exploring cutting-edge technologies.</p>
         <h2>Getting Started</h2>
-        <p>To see the full content, please set up your markdown files in the content directory.</p>
+        <p>Browse through my projects and feel free to get in touch if you'd like to collaborate.</p>
       `,
-      description: 'Comprehensive guide to smart contract proxy patterns and security'
+      description: 'Personal portfolio and showcase of development work'
     };
   }, [currentPage, initialContent]);
   
   const currentPageData = getCurrentPageData();
   
   // Floating TOC
-  const floatingTOC = useMemo(() => {
+  const floatingTOC = useMemo<TOCItem[]>(() => {
     if (!currentPageData.contentHtml) return [];
     
     const tocRegex = /<div class="jekyll-toc">[\s\S]*?<\/div>/;
@@ -488,7 +630,7 @@ const ProxiesSiteDark = ({
     if (!tocMatch) return [];
     
     const linkRegex = /<a href="([^"]*)" class="toc-link">([^<]*)<\/a>/g;
-    const links = [];
+    const links: TOCItem[] = [];
     let match;
     
     while ((match = linkRegex.exec(tocMatch[0])) !== null) {
@@ -522,19 +664,6 @@ const ProxiesSiteDark = ({
       );
     }
     
-    if (currentPageData.sections?.length > 0) {
-      return (
-        <div>
-          {currentPageData.sections.map((section, idx) => (
-            <section key={idx} className="mb-8">
-              <h2 className="text-xl font-semibold mb-4">{section.title}</h2>
-              <p className="leading-relaxed">{section.content}</p>
-            </section>
-          ))}
-        </div>
-      );
-    }
-    
     return (
       <p className="text-lg leading-relaxed mb-8">
         {currentPageData.description || 'Content not available.'}
@@ -543,7 +672,7 @@ const ProxiesSiteDark = ({
   }, [currentPageData]);
 
   // Handle breadcrumb navigation
-  const handleBreadcrumbClick = useCallback((e) => {
+  const handleBreadcrumbClick = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
     const parentPage = sidebarItems.find(item => 
       item.children?.some(child => child.id === currentPage)
@@ -599,13 +728,13 @@ const ProxiesSiteDark = ({
             
             <div className="mt-8 pt-4 border-t border-zinc-800">
               <a
-                href="https://yacademy.dev"
+                href="https://github.com/nullity"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-3 py-2 text-sm text-zinc-400 hover:text-white transition-colors"
               >
                 <ExternalLink size={16} />
-                yAcademy Website
+                GitHub Profile
               </a>
             </div>
           </div>
@@ -667,21 +796,12 @@ const ProxiesSiteDark = ({
           <div className="px-8 py-8 md:px-12 lg:px-16">
             <div className="content-container">
               <article>
-                {/* Breadcrumb Navigation */}
-                <nav className="flex items-center space-x-2 text-sm text-zinc-400 mb-6" aria-label="Breadcrumb">
-                  <button
-                    onClick={handleBreadcrumbClick}
-                    className="hover:text-white transition-colors"
-                  >
-                    {sidebarItems.find(item => 
-                      item.children?.some(child => child.id === currentPage)
-                    )?.title || 'Security Guide to Proxy Vulns'}
-                  </button>
-                  <span>/</span>
-                  <span className="text-white">
+                {/* Page Title */}
+                <header className="mb-6">
+                  <h1 className="text-3xl font-bold text-white">
                     {currentPageData.title}
-                  </span>
-                </nav>
+                  </h1>
+                </header>
                 
                 {/* Page Content */}
                 <div className="prose prose-invert max-w-none">
@@ -691,15 +811,15 @@ const ProxiesSiteDark = ({
                 {/* Footer */}
                 <footer className="mt-12 pt-8 border-t border-zinc-800">
                   <div className="flex items-center justify-between text-sm text-zinc-400">
-                    <span>Research effort led by engn33r and devtooligan of yAcademy</span>
+                    <span>© 2024 Nullity. All rights reserved.</span>
                     <a
-                      href="https://github.com/YAcademy-Residents/Proxies-website"
+                      href="https://github.com/nullity"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center gap-1 hover:text-white transition-colors"
                     >
                       <Github size={16} />
-                      Edit on GitHub
+                      GitHub
                     </a>
                   </div>
                 </footer>
@@ -712,4 +832,4 @@ const ProxiesSiteDark = ({
   );
 };
 
-export default ProxiesSiteDark;
+export default PortfolioSite;

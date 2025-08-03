@@ -364,3 +364,13 @@
 .table-wrapper::-webkit-scrollbar-thumb:hover {
   background: #71717a;
 }
+
+/* Search highlighting */
+.search-highlight,
+mark {
+  background-color: #fbbf24;
+  color: #000000;
+  padding: 0.1em 0.2em;
+  border-radius: 2px;
+  font-weight: 500;
+}
