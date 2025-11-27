@@ -67,27 +67,27 @@ const formalEducation: LearningItem[] = [
 function LearningSection({ title, items }: { title: string; items: LearningItem[] }) {
   return (
     <div className="mb-6">
-      <h2 className="text-base font-bold mb-3">{title}</h2>
+      <h2 className="text-lg font-bold mb-3">{title}</h2>
       <div className="space-y-3">
         {items.map((item, index) => (
-          <div key={index} className="border-l-2 border-zinc-700 pl-3 relative">
-            <div className="absolute w-2 h-2 bg-white rounded-full -left-1 top-0"></div>
-            
+          <div key={index} className="relative">
             <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-1">
               <div className="flex-1">
-                <h3 className="text-sm font-bold text-white mb-0.5">{item.institution}</h3>
-                <p className="text-xs text-zinc-300 mb-0.5">{item.program}</p>
-                <p className="text-xs text-zinc-500 mb-1">{item.period}</p>
-                
+                <h3 className="text-lg font-bold text-white mb-0.5">{item.institution}</h3>
+                <p className="text-base text-zinc-300 mb-0.5">{item.program}</p>
+              </div>
+
+              <div className="md:text-right mt-1 md:mt-0">
+                <p className="text-sm text-zinc-500 mb-1">{item.period}</p>
                 {item.links.length > 0 && (
-                  <div className="flex flex-wrap gap-1 mb-1">
+                  <div className="flex flex-wrap gap-1 md:justify-end">
                     {item.links.map((link, linkIndex) => (
                       <a
                         key={linkIndex}
                         href={link.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-white hover:text-zinc-300 underline text-xs"
+                        className="text-white hover:text-zinc-300 underline text-sm"
                       >
                         [{link.text}]
                       </a>
@@ -96,8 +96,8 @@ function LearningSection({ title, items }: { title: string; items: LearningItem[
                 )}
               </div>
             </div>
-            
-            <p className="text-zinc-300 leading-relaxed text-xs">{item.details}</p>
+
+            <p className="text-zinc-300 leading-relaxed text-sm">{item.details}</p>
           </div>
         ))}
       </div>

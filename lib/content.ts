@@ -4,6 +4,8 @@ import matter from 'gray-matter'
 import { remark } from 'remark'
 import html from 'remark-html'
 import remarkGfm from 'remark-gfm'
+import remarkMath from 'remark-math'
+import rehypeKatex from 'rehype-katex'
 
 const contentDirectory = path.join(process.cwd(), 'content')
 
@@ -110,7 +112,9 @@ export async function getContentData(slug: string): Promise<ContentData | null> 
     // Enhanced markdown processing with better options
     const processedContent = await remark()
       .use(remarkGfm) // GitHub Flavored Markdown
-      .use(html, { 
+      .use(remarkMath) // Math support
+      .use(rehypeKatex) // KaTeX for rendering LaTeX
+      .use(html, {
         sanitize: false, // Allow HTML in markdown
         allowDangerousHtml: true // Allow dangerous HTML for full compatibility
       })

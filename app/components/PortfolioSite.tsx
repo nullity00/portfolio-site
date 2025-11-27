@@ -79,7 +79,7 @@ function SearchSkeleton() {
   return (
     <div className="relative max-w-6xl">
       <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-zinc-500" size={18} />
-      <div className="w-full pl-10 pr-4 py-3 rounded-lg border bg-zinc-900 border-zinc-700 animate-pulse">
+      <div className="w-full pl-10 pr-4 py-3 rounded-lg bg-zinc-900 animate-pulse">
         <div className="h-6 bg-zinc-700 rounded w-48"></div>
       </div>
     </div>
@@ -111,13 +111,13 @@ function SearchComponent({
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
         onFocus={handleSearchFocus}
-        className="w-full pl-10 pr-4 py-3 rounded-lg border bg-zinc-900 border-zinc-700 text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent transition-colors"
+        className="w-full pl-10 pr-4 py-3 rounded-lg bg-zinc-900 text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-white transition-colors"
       />
       
       {isSearchFocused && (searchQuery || searchResults.length > 0) && (
         <div 
           ref={searchDropdownRef}
-          className="absolute top-full left-0 right-0 mt-2 bg-zinc-900 border-zinc-700 border rounded-lg shadow-2xl z-50 max-h-96 overflow-y-auto"
+          className="absolute top-full left-0 right-0 mt-2 bg-zinc-900 rounded-lg shadow-2xl z-50 max-h-96 overflow-y-auto"
           role="listbox"
           aria-label="Search results"
         >
@@ -126,25 +126,25 @@ function SearchComponent({
               <button
                 key={`${result.id}-${idx}`}
                 onClick={() => handleSearchResultClick(result)}
-                className="w-full text-left p-4 hover:bg-zinc-800 border-b border-zinc-800 last:border-b-0 transition-colors"
+                className="w-full text-left p-4 hover:bg-zinc-800 transition-colors"
                 role="option"
                 aria-selected={false}
               >
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="text-sm font-medium text-white">
+                  <span className="text-base font-medium text-white">
                     {result.pageTitle || result.title}
                   </span>
                   {result.type === 'section' && (
                     <>
                       <ChevronRight size={14} className="text-zinc-500" />
-                      <span className="text-sm text-zinc-400">
+                      <span className="text-base text-zinc-400">
                         {result.title}
                       </span>
                     </>
                   )}
                 </div>
-                <p 
-                  className="text-sm text-zinc-400 line-clamp-2"
+                <p
+                  className="text-base text-zinc-400 line-clamp-2"
                   dangerouslySetInnerHTML={{ __html: result.highlightedContent }}
                 />
               </button>
@@ -196,7 +196,7 @@ function MobileMenuComponent({
       />
       
       {/* Sidebar with slide transition */}
-      <aside className={`fixed left-0 top-0 w-64 h-full bg-zinc-900 border-r border-zinc-800 overflow-y-auto transform transition-transform duration-300 ease-in-out ${
+      <aside className={`fixed left-0 top-0 w-64 h-full bg-zinc-900 overflow-y-auto transform transition-transform duration-300 ease-in-out ${
         isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
       }`}>
         <div className="p-6">
@@ -263,7 +263,7 @@ function SidebarItem({
           aria-current={currentPage === item.id ? 'page' : undefined}
         >
           <item.icon size={18} />
-          <span className="text-sm font-medium">{item.title}</span>
+          <span className="text-base font-medium">{item.title}</span>
         </button>
         
         {item.children && (
@@ -293,7 +293,7 @@ function SidebarItem({
                   onItemClick?.();
                 }, 150);
               }}
-              className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
+              className={`w-full text-left px-3 py-2 rounded-lg text-base transition-colors ${
                 currentPage === child.id
                   ? 'bg-white text-black'
                   : 'hover:bg-zinc-800 text-zinc-400'
@@ -690,7 +690,7 @@ const PortfolioSite: React.FC<PortfolioSiteProps> = ({
         {isClient && (
           <button
             onClick={() => setIsMobileMenuOpen(true)}
-            className="fixed top-4 left-4 z-50 p-2 bg-zinc-900 rounded-lg border border-zinc-700 md:hidden"
+            className="fixed top-4 left-4 z-50 p-2 bg-zinc-900 rounded-lg md:hidden"
             aria-label="Open menu"
           >
             <Menu size={20} />
@@ -711,7 +711,7 @@ const PortfolioSite: React.FC<PortfolioSiteProps> = ({
         )}
         
         {/* Desktop Sidebar */}
-        <aside className="hidden md:block sticky top-0 w-72 h-screen bg-zinc-900 border-r border-zinc-800 overflow-y-auto">
+        <aside className="hidden md:block sticky top-0 w-72 h-screen bg-zinc-900 overflow-y-auto">
           <div className="p-6">
             <nav className="space-y-2" role="navigation" aria-label="Main navigation">
               {sidebarItems.map((item) => (
@@ -726,12 +726,12 @@ const PortfolioSite: React.FC<PortfolioSiteProps> = ({
               ))}
             </nav>
             
-            <div className="mt-8 pt-4 border-t border-zinc-800">
+            <div className="mt-8 pt-4">
               <a
                 href="https://github.com/nullity"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-3 py-2 text-sm text-zinc-400 hover:text-white transition-colors"
+                className="flex items-center gap-2 px-3 py-2 text-base text-zinc-400 hover:text-white transition-colors"
               >
                 <ExternalLink size={16} />
                 GitHub Profile
@@ -743,7 +743,7 @@ const PortfolioSite: React.FC<PortfolioSiteProps> = ({
         {/* Main Content */}
         <main className="flex-1 min-w-0">
           {/* Search Section */}
-          <div className="px-8 py-6 md:px-12 lg:px-16 border-b border-zinc-800">
+          <div className="px-8 py-6 md:px-12 lg:px-16">
             <div className="max-w-4xl"> 
               {isClient ? (
                 <ClientOnlySearch
@@ -764,9 +764,9 @@ const PortfolioSite: React.FC<PortfolioSiteProps> = ({
 
           {/* Floating TOC */}
           {showTableOfContents && floatingTOC.length > 0 && (
-            <div className="fixed right-8 top-24 bottom-4 w-64 bg-zinc-900 border border-zinc-700 rounded-lg shadow-2xl z-30 overflow-y-auto p-4">
+            <div className="fixed right-8 top-24 bottom-4 w-64 bg-zinc-900 rounded-lg shadow-2xl z-30 overflow-y-auto p-4">
               <div className="flex justify-between items-center mb-3">
-                <h3 className="font-semibold text-sm text-white">
+                <h3 className="font-semibold text-base text-white">
                   Table of Contents
                 </h3>
                 <button
@@ -782,7 +782,7 @@ const PortfolioSite: React.FC<PortfolioSiteProps> = ({
                   <a
                     key={index}
                     href={item.href}
-                    className="block text-sm text-zinc-300 hover:text-white transition-colors"
+                    className="block text-base text-zinc-300 hover:text-white transition-colors"
                     onClick={() => setShowTableOfContents(false)}
                   >
                     {item.title}
@@ -809,8 +809,8 @@ const PortfolioSite: React.FC<PortfolioSiteProps> = ({
                 </div>
                 
                 {/* Footer */}
-                <footer className="mt-12 pt-8 border-t border-zinc-800">
-                  <div className="flex items-center justify-between text-sm text-zinc-400">
+                <footer className="mt-12 pt-8">
+                  <div className="flex items-center justify-between text-base text-zinc-400">
                     <span>© 2024 Nullity. All rights reserved.</span>
                     <a
                       href="https://github.com/nullity"

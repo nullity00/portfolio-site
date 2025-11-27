@@ -39,23 +39,8 @@ const projectCategories: ProjectCategory[] = [
     ]
   },
   {
-    title: "Solidity",
-    projects: [
-      {
-        name: "ecc-solidity",
-        description: "Solidity implementation of elliptic curve operations, parameterized for curves secp256r1, secp256k1 with tests using Foundry",
-        links: [{ text: "link", url: "https://github.com/nullity00/ecc-solidity" }]
-      }
-    ]
-  },
-  {
     title: "Resources",
     projects: [
-      {
-        name: "web3-resources",
-        description: "Collection of web3 resources for blockchain enthusiasts. Contains some major alpha on ZKP, Solidity & auditing.",
-        links: [{ text: "link", url: "https://github.com/nullity00/web3-resources/" }]
-      },
       {
         name: "zk-security-reviews",
         description: "Collection of security reviews of ZK Protocols",
@@ -102,43 +87,9 @@ const projectCategories: ProjectCategory[] = [
     title: "Blockchain",
     projects: [
       {
-        name: "Testing-Web3",
-        description: "A fun attempt to try out some of the interesting projects in Web3 which include snapshot, lighthouse ..",
-        links: [
-          { text: "site", url: "https://testing-web3.vercel.app/" },
-          { text: "code", url: "https://github.com/nullity00/Testing-Web3" }
-        ]
-      },
-      {
-        name: "Trug",
-        description: "A decentralized file storage platform which functions quite similar to Google Drive with static URLs and enhanced Web3 features.",
-        links: [
-          { text: "site", url: "https://trug.vercel.app/" },
-          { text: "code", url: "https://github.com/nullity00/Trug" }
-        ]
-      },
-      {
         name: "mintbaseXsupabase",
         description: "The app pulls NFTs as graphdata from the public Mintbase graph, uses Supabase Auth to manage users and Supabase tables for the NFT, Like and Comment data.",
         links: [{ text: "code", url: "https://github.com/nullity00/mintbaseXsupabase" }]
-      }
-    ]
-  },
-  {
-    title: "Web2",
-    projects: [
-      {
-        name: "landing-page-spect",
-        description: "Landing Page for Spect Network",
-        links: [
-          { text: "site", url: "https://spect.network" },
-          { text: "code", url: "https://github.com/nullity00/landing-page-spect" }
-        ]
-      },
-      {
-        name: "Travel-Advisor",
-        description: "A simple React App which lists all the Hotels, Restaurants & Tourist Attractions in a specified location.",
-        links: [{ text: "code", url: "https://github.com/nullity00/Travel-Advisor-" }]
       }
     ]
   }

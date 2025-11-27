@@ -1,10 +1,12 @@
 import './globals.css'
+import 'katex/dist/katex.min.css'
 import { Metadata } from 'next'
-import { Outfit } from 'next/font/google'
+import { Space_Mono } from 'next/font/google'
 
-const outfit = Outfit({
+const spaceMono = Space_Mono({
+  weight: ['400', '700'],
   subsets: ['latin'],
-  variable: '--font-outfit',
+  variable: '--font-space-mono',
   display: 'swap',
 })
 
@@ -20,7 +22,7 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
-      <body className={`${outfit.variable} font-sans`}>{children}</body>
+      <body className={`${spaceMono.variable} font-sans`}>{children}</body>
     </html>
   )
 }

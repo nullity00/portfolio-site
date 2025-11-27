@@ -86,7 +86,7 @@ export default function BlogListing({ blogPosts }: BlogListingProps) {
               placeholder="Search blog posts..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 rounded-lg border bg-zinc-900 border-zinc-700 text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent transition-colors"
+              className="w-full pl-10 pr-4 py-3 rounded-lg bg-zinc-900 text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-white transition-colors"
             />
           </div>
         </div>
@@ -100,11 +100,11 @@ export default function BlogListing({ blogPosts }: BlogListingProps) {
               return (
                 <article 
                   key={post.slug}
-                  className="border border-zinc-700 rounded-lg p-6 hover:border-zinc-500 transition-colors"
+                  className="rounded-lg p-6 hover:bg-zinc-900 transition-colors"
                 >
                   {/* Post Header */}
                   <header className="mb-4">
-                    <Link 
+                    <Link
                       href={`/blog/${post.slug}`}
                       className="block group"
                     >
@@ -112,51 +112,19 @@ export default function BlogListing({ blogPosts }: BlogListingProps) {
                         {post.title}
                       </h2>
                     </Link>
-                    
+
                     {post.description && (
-                      <p className="text-zinc-400 text-sm leading-relaxed mb-3">
+                      <p className="text-white/80 text-base leading-relaxed">
                         {post.description}
                       </p>
                     )}
-                    
-                    <div className="flex items-center gap-4 text-xs text-zinc-500">
-                      <span>Category: {post.category || 'Blog'}</span>
-                      <span>•</span>
-                      <span>{headings.length} sections</span>
-                      <span>•</span>
-                      <span>{estimateReadingTime(post.contentHtml)} min read</span>
-                    </div>
                   </header>
 
-                  {/* Content Preview */}
-                  <div className="mb-4">
-                    <p className="text-zinc-300 text-sm leading-relaxed">
-                      {generateExcerpt(post.contentHtml, 250)}
-                    </p>
-                  </div>
-
-                  {/* Main Topics/Headings */}
-                  {headings.length > 0 && (
-                    <div className="mb-4">
-                      <h3 className="text-sm font-semibold text-white mb-2">Main Topics:</h3>
-                      <div className="flex flex-wrap gap-2">
-                        {headings.map((heading, index) => (
-                          <span 
-                            key={index}
-                            className="px-2 py-1 bg-zinc-800 text-zinc-300 rounded text-xs"
-                          >
-                            {heading}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-
                   {/* Read More Link */}
-                  <div className="pt-4 border-t border-zinc-800">
+                  <div className="pt-4">
                     <Link
                       href={`/blog/${post.slug}`}
-                      className="inline-flex items-center text-white hover:text-zinc-300 transition-colors text-sm font-medium"
+                      className="inline-flex items-center text-white hover:text-zinc-300 transition-colors text-base font-medium"
                     >
                       Read full article →
                     </Link>
@@ -175,9 +143,9 @@ export default function BlogListing({ blogPosts }: BlogListingProps) {
 
         {/* Footer */}
         {filteredPosts.length > 0 && (
-          <div className="mt-12 pt-8 border-t border-zinc-800 text-center">
-            <p className="text-zinc-500 text-sm">
-              {filteredPosts.length} blog post{filteredPosts.length !== 1 ? 's' : ''} 
+          <div className="mt-12 pt-8 text-center">
+            <p className="text-zinc-500 text-base">
+              {filteredPosts.length} blog post{filteredPosts.length !== 1 ? 's' : ''}
               {searchQuery && ` matching "${searchQuery}"`}
             </p>
           </div>

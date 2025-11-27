@@ -11,6 +11,15 @@ interface MiscItem {
 
 const talksData: MiscItem[] = [
   {
+    title: "yAudit zBlock2",
+    category: "Halo2",
+    period: "June 2024",
+    links: [
+      { text: "Video", url: "https://youtu.be/0ZfUKTc_qoE?si=2bmNvr9T1u_Ajy3a" }
+    ],
+    details: "Talk on Halo2 during yAudit's zBlock2 auditing fellowship"
+  },
+  {
     title: "OpenSense",
     category: "ZK Circuit Development",
     period: "26th Sept 2023",

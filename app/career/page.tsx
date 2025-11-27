@@ -12,12 +12,25 @@ interface CareerItem {
 
 const careerData: CareerItem[] = [
   {
-    company: "YAcademyDAO",
+    company: "yAudit",
     role: "Core",
     period: "Sept - Present",
-    links: [{ text: "site", url: "https://yacademy.dev/" }],
+    links: [{ text: "site", url: "https://yaudit.dev/" }],
     details: "...",
     accomplishments: []
+  },
+  {
+    company: "yAudit",
+    role: "Mentor (zBlock2)",
+    period: "Jan 2024 - May 2024",
+    links: [
+      { text: "site", url: "https://yaudit.dev/zBlock2" },
+      { text: "zBlock1", url: "https://yaudit.dev/zBlock1" }
+    ],
+    details: "The second zero-knowledge auditing fellowship centered around the PSE-Halo2 development framework and the KZG commitment scheme.",
+    accomplishments: [
+      "Mentored fellows in auditing the Summa Protocol, a blockchain-based solution for providing proof of solvency for financial entities."
+    ]
   },
   {
     company: "Ethereum Foundation",
@@ -27,27 +40,26 @@ const careerData: CareerItem[] = [
       { text: "site", url: "https://ethereum.org/en/community/grants/" },
       { text: "code", url: "https://github.com/nullity00/batch-ecdsa-secp256r1" }
     ],
-    details: "The EF provides grants to individuals, companies & teams working on cutting edge research & development in the Ethereum & ZK ecosystem.",
+    details: "Research & development grant for Batch ECDSA Signatures using P256 curve to facilitate verification of signatures from Secure Enclave. Funded by PolygonDAO, GR14 & Push Protocol.",
     accomplishments: [
-      "Pursued the research and development of Batch ECDSA Signatures using P256 curve to facilitate the verification of signatures signed from Secure Enclave.",
-      "In one of the approaches, I used circom to create circuits & the Nova library to fold multiple signatures",
-      "In another approach, I used circom to create a batch verification circuit using randomizers"
+      "Developed circuits using circom & Nova library for signature folding",
+      "Created batch verification circuit using randomizers"
     ]
   },
   {
-    company: "YAcademyDAO",
+    company: "yAudit",
     role: "ZK Auditing Fellow (zBlock1)",
     period: "May 2023 - June 2023",
     links: [
-      { text: "site", url: "https://yacademy.dev/" },
+      { text: "site", url: "https://yaudit.dev/" },
       { text: "reports", url: "https://github.com/nullity00/audits" }
     ],
-    details: "A 5 week program for zk auditors where to audit circom codebases",
+    details: "5-week program for zk auditors to audit circom codebases.",
     accomplishments: [
-      "Was awarded the Top Fellow Award for the zBlock1 cohort.",
-      "Audited circuits written in circom for Rate Limiting Nullifier project by the PSE team & spartan ECDSA by Personae Labs.",
-      "Explored formal verification tools for circom including Picus & Ecne",
-      "Tutored peers on ZK theory, Circom & shared notes for non-fellows in the public discussion channels."
+      "Awarded Top Fellow Award for zBlock1 cohort",
+      "Audited Rate Limiting Nullifier (PSE) & Spartan ECDSA (Personae Labs)",
+      "Explored formal verification tools: Picus & Ecne",
+      "Tutored peers on ZK theory & Circom"
     ]
   },
   {
@@ -58,12 +70,12 @@ const careerData: CareerItem[] = [
       { text: "site", url: "https://spect.network" },
       { text: "code", url: "https://github.com/spect-ai" }
     ],
-    details: "Spect provides web3 forms, projects & automations to coordinate & build DAOs the decentralized way. Funded by PolygonDAO, GR14 & Push Protocol",
+    details: "Web3 forms, projects & automations for DAOs. Funded by PolygonDAO, GR14 & Push Protocol.",
     accomplishments: [
-      "Revamped the application's frontend by providing feasible UI using React.js & Next.js.",
-      "Accelerated the integration of Soul bound Tokens into Spect Profiles by designing the tokens.",
-      "Designed & deployed the GitHub bot for seamless integration into Spect Network using GitHub API & webhooks.",
-      "Used Nest.js, Mongoose, MongoDB to create endpoints in the CQRS pattern."
+      "Built frontend using React.js & Next.js",
+      "Integrated Soulbound Tokens into Spect Profiles",
+      "Developed GitHub bot using GitHub API & webhooks",
+      "Created CQRS endpoints with Nest.js, Mongoose, MongoDB"
     ]
   },
   {
@@ -74,10 +86,10 @@ const careerData: CareerItem[] = [
       { text: "site", url: "https://www.linkedin.com/company/flawed-arts/" },
       { text: "portfolio", url: "https://www.instagram.com/flawed.arts_/" }
     ],
-    details: "Flawed Arts is an Indian Graphic designing and Digital Marketing company",
+    details: "Indian Graphic design and Digital Marketing company.",
     accomplishments: [
-      "Designed the client's applications using Wordpress, Elementor, Figma, Canva and developed them using JS Frameworks and Django.",
-      "Developed POS Applications for small sized business using React.js, MongoDB and AWS S3 buckets."
+      "Designed & developed client applications using Wordpress, Elementor, Figma, JS frameworks & Django",
+      "Built POS applications using React.js, MongoDB & AWS S3"
     ]
   },
   {
@@ -85,7 +97,7 @@ const careerData: CareerItem[] = [
     role: "Graphic Designer",
     period: "Nov 2019 - Aug 2020",
     links: [{ text: "portfolio", url: "https://www.behance.net/nullity00" }],
-    details: "Teamed up with my fellow friend Abdul Majeed to design logos, posters, banners, etc. for various clients using Adobe Illustrator, Adobe Photoshop, Adobe XD, Figma & Blender.",
+    details: "Designed logos, posters, banners using Adobe Illustrator, Photoshop, XD, Figma & Blender.",
     accomplishments: []
   }
 ]
@@ -100,23 +112,24 @@ export default function CareerPage() {
         
         <div className="space-y-4">
           {careerData.map((item, index) => (
-            <div key={index} className="border-l-2 border-zinc-700 pl-3 relative">
-              <div className="absolute w-2 h-2 bg-white rounded-full -left-1 top-0"></div>
-              
+            <div key={index} className="relative">
+
               <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-1">
-                <div>
-                  <h2 className="text-base font-bold text-white mb-0.5">{item.company}</h2>
-                  <p className="text-sm text-zinc-300 mb-0.5">{item.role}</p>
-                  <p className="text-xs text-zinc-500 mb-1">{item.period}</p>
-                  
-                  <div className="flex flex-wrap gap-1 mb-1">
+                <div className="flex-1">
+                  <h2 className="text-lg font-bold mb-0.5">{item.company}</h2>
+                  <p className="text-base text-white/80 mb-0.5">{item.role}</p>
+                </div>
+
+                <div className="md:text-right mt-1 md:mt-0">
+                  <p className="text-sm text-white/80 mb-1">{item.period}</p>
+                  <div className="flex flex-wrap gap-1 md:justify-end">
                     {item.links.map((link, linkIndex) => (
                       <a
                         key={linkIndex}
                         href={link.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-white hover:text-zinc-300 underline text-xs"
+                        className="text-white/80 hover:text-white underline text-sm"
                       >
                         [{link.text}]
                       </a>
@@ -124,14 +137,14 @@ export default function CareerPage() {
                   </div>
                 </div>
               </div>
-              
-              <div className="text-zinc-300 leading-relaxed">
-                <p className="mb-1 text-xs">{item.details}</p>
-                
+
+              <div className="leading-relaxed">
+                <p className="mb-1 text-sm text-white/80">{item.details}</p>
+
                 {item.accomplishments.length > 0 && (
                   <>
-                    <h3 className="text-xs font-semibold text-white mb-1">Accomplishments</h3>
-                    <ul className="list-disc list-inside space-y-0.5 text-zinc-300 text-xs">
+                    <h3 className="text-sm font-semibold mb-1">Accomplishments</h3>
+                    <ul className="list-disc list-inside space-y-0.5 text-white/80 text-sm">
                       {item.accomplishments.map((accomplishment, accIndex) => (
                         <li key={accIndex}>{accomplishment}</li>
                       ))}

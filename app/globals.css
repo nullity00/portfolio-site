@@ -26,8 +26,8 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-outfit);
-  
+  --font-sans: var(--font-space-mono);
+
   /* Modern B/W theme colors for Tailwind */
   --color-black-custom: var(--black);
   --color-zinc-900-custom: var(--zinc-900);
@@ -38,7 +38,7 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-outfit), system-ui, -apple-system, sans-serif;
+  font-family: var(--font-space-mono), 'Monaco', 'Menlo', monospace, system-ui;
 }
 
 /* Modern B/W utility classes */

@@ -11,102 +11,172 @@ export default function HomePage() {
         <div className="flex flex-col md:flex-row gap-6">
           <div className="md:w-2/3">
             <h1 className="text-3xl font-bold mb-4">Nullity</h1>
-            
-            <p className="text-sm leading-relaxed mb-3">
-              I&apos;m a math graduate with a strong interest in applied cryptography, zero knowledge proofs & its application in the Ethereum ecosystem.
-            </p>
-            
-            <p className="text-sm leading-relaxed mb-3">
-              Previously, I was a MERN stack developer with experience in development of dApps as well.
-            </p>
-            
-            <p className="text-sm leading-relaxed mb-3">
-              I specialize in the development, optimization & security of ZK circuits in DSLs (Circom, Noir), libraries (Bellman, Halo2, Plonky2) with knowledge in the workings of PLONKish SNARKs.
-            </p>
-            
-            <p className="text-sm leading-relaxed mb-4">
-              Right now, I do ZK research & security at{' '}
-              <a 
-                href="https://twitter.com/yAcademyDao" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-white hover:text-zinc-300 underline"
-              >
-                yAcademyDAO
-              </a>
+
+            <p className="text-base leading-relaxed mb-3 text-white/50">
+              I&apos;m a math graduate with a strong interest in <span className="text-white">applied cryptography</span>, <span className="text-white">zero knowledge proofs</span> & its application in the Ethereum ecosystem.
             </p>
 
-            {/* Contact Section */}
+            <p className="text-base leading-relaxed mb-6 text-white/50">
+              In previous life, I was a designer, full stack developer (MERN) and blockchain developer.
+            </p>
+
+            {/* Audits Section */}
             <div className="mb-6">
-              <h2 className="text-lg font-semibold mb-3">Get in Touch</h2>
-              <p className="text-sm leading-relaxed mb-4">
-                Feel free to reach out for collaborations, questions about ZK circuits, or just to say hi!
-              </p>
-              
-              <div className="grid gap-3 md:grid-cols-3 mb-4">
+              <h2 className="text-xl font-semibold mb-3">Audits</h2>
+              <div className="space-y-2">
+                <div className="text-base text-white/50">WORM | Solidity</div>
                 <a
-                  href="mailto:00nullity@gmail.com"
-                  className="block p-3 border border-zinc-700 rounded hover:border-zinc-500 transition-colors"
-                >
-                  <h3 className="text-sm font-semibold mb-1">Email</h3>
-                  <p className="text-zinc-300 text-xs">00nullity@gmail.com</p>
-                </a>
-                
-                <a
-                  href="https://twitter.com/nullity00"
+                  href="https://github.com/nullity00/audits/blob/main/2025-07-Neo-zk-dkg.md"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block p-3 border border-zinc-700 rounded hover:border-zinc-500 transition-colors"
+                  className="block text-base text-white/50 hover:text-white transition-colors"
                 >
-                  <h3 className="text-sm font-semibold mb-1">Twitter</h3>
-                  <p className="text-zinc-300 text-xs">@nullity00</p>
+                  Neo X ZK-DKG | Rust, Gnark
                 </a>
-                
                 <a
-                  href="https://github.com/nullity00"
+                  href="https://github.com/nullity00/audits/blob/main/2025-04-Mina-Attestations.md"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block p-3 border border-zinc-700 rounded hover:border-zinc-500 transition-colors"
+                  className="block text-base text-white/50 hover:text-white transition-colors"
                 >
-                  <h3 className="text-sm font-semibold mb-1">GitHub</h3>
-                  <p className="text-zinc-300 text-xs">nullity00</p>
+                  Mina Attestations | TypeScript, o1js
+                </a>
+                <a
+                  href="/career"
+                  className="inline-block text-zinc-400 hover:text-white transition-colors text-base mt-2"
+                >
+                  View More →
                 </a>
               </div>
-              
-              <div className="border border-zinc-700 rounded p-3">
-                <h3 className="text-sm font-semibold mb-3">Areas of Interest</h3>
-                <div className="grid gap-3 md:grid-cols-2">
-                  <div>
-                    <h4 className="text-xs font-medium mb-1">Research & Development</h4>
-                    <ul className="text-zinc-300 space-y-0.5 text-xs">
-                      <li>• Zero Knowledge Proofs</li>
-                      <li>• Applied Cryptography</li>
-                      <li>• ZK Circuit Development</li>
-                      <li>• PLONK/SNARKs</li>
-                    </ul>
-                  </div>
-                  <div>
-                    <h4 className="text-xs font-medium mb-1">Security & Auditing</h4>
-                    <ul className="text-zinc-300 space-y-0.5 text-xs">
-                      <li>• ZK Circuit Auditing</li>
-                      <li>• Smart Contract Security</li>
-                      <li>• Formal Verification</li>
-                      <li>• Security Reviews</li>
-                    </ul>
-                  </div>
-                </div>
+            </div>
+
+            {/* Blogs Section */}
+            <div className="mb-6">
+              <h2 className="text-xl font-semibold mb-3">Blogs</h2>
+              <div className="space-y-2">
+                <a
+                  href="/blog/fiat-shamir"
+                  className="block text-base text-white/50 hover:text-white transition-colors"
+                >
+                  Fiat-Shamir Pitfalls
+                </a>
+                <a
+                  href="/blog/circom"
+                  className="block text-base text-white/50 hover:text-white transition-colors"
+                >
+                  Changing Circom Prime Field
+                </a>
+                <a
+                  href="/blog"
+                  className="inline-block text-zinc-400 hover:text-white transition-colors text-base mt-2"
+                >
+                  View More →
+                </a>
+              </div>
+            </div>
+
+            {/* Projects Section */}
+            <div className="mb-6">
+              <h2 className="text-xl font-semibold mb-3">Projects</h2>
+              <div className="space-y-2">
+                <a
+                  href="https://github.com/nullity00/batch-ecdsa-secp256r1"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block text-base text-white/50 hover:text-white transition-colors"
+                >
+                  batch-ecdsa-secp256r1
+                </a>
+                <a
+                  href="https://github.com/nullity00/circom-circuits"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block text-base text-white/50 hover:text-white transition-colors"
+                >
+                  circom-circuits
+                </a>
+                <a
+                  href="https://github.com/nullity00/huff-puzzles"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block text-base text-white/50 hover:text-white transition-colors"
+                >
+                  huff-puzzles
+                </a>
+                <a
+                  href="/projects"
+                  className="inline-block text-zinc-400 hover:text-white transition-colors text-base mt-2"
+                >
+                  View More →
+                </a>
               </div>
             </div>
           </div>
           
           <div className="md:w-1/3">
-            <div className="border border-zinc-700 rounded p-3">
-              <div className="w-full h-32 bg-zinc-800 rounded mb-2 flex items-center justify-center">
-                <span className="text-zinc-500 text-xs">Profile Image</span>
+            <div className="rounded p-3 mb-6">
+              <div className="w-full rounded mb-2 overflow-hidden">
+                <img
+                  src="/1.jpg"
+                  alt="Nullity Profile"
+                  className="w-full h-auto object-cover"
+                />
               </div>
-              <p className="text-xs text-zinc-400 text-center">
+              <p className="text-sm text-zinc-400 text-center">
                 <em>Nah, that&apos;s not me</em>
               </p>
+            </div>
+
+            {/* Previously Section */}
+            <div className="rounded p-3">
+              <h2 className="text-xl font-semibold mb-3">Previously</h2>
+              <div className="flex flex-wrap gap-4 items-center justify-center mb-4">
+                <img
+                  src="/hacken.png"
+                  alt="Hacken"
+                  className="h-8 w-auto grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+                />
+                <img
+                  src="/yaudit.svg"
+                  alt="yAudit"
+                  className="h-8 w-auto grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+                />
+                <img
+                  src="/ef.svg"
+                  alt="Ethereum Foundation"
+                  className="h-8 w-auto grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+                />
+                <img
+                  src="/spect.svg"
+                  alt="Spect"
+                  className="h-8 w-auto grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+                />
+                <img
+                  src="/fa.jpeg"
+                  alt="Flawed Arts"
+                  className="h-8 w-auto grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300 rounded"
+                />
+              </div>
+
+              <div className="space-y-2 text-center">
+                <h3 className="text-base font-semibold">Creator of</h3>
+                <a
+                  href="https://zkglitch.xyz"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block text-base text-white/50 hover:text-white transition-colors"
+                >
+                  zkglitch.xyz
+                </a>
+                <a
+                  href="https://nullity00.notion.site/Justin-Thaler-Proofs-Args-0cd79d9f70c34c26a12f37243a3092cb"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block text-base text-white/50 hover:text-white transition-colors"
+                >
+                  Proofs & Args Notes
+                </a>
+              </div>
             </div>
           </div>
         </div>
