@@ -65,6 +65,12 @@ export interface Heading {
 const fileNameMapping: Record<string, string> = {
   'circom.md': 'change-circom-prime-field',
   'fiat-shamir.md': 'fiat-shamir-pitfalls',
+  'trusted-setup.md': 'trusted-setup',
+  'plonk.md': 'plonk',
+  'folding.md': 'folding',
+  'circom-pitfalls.md': 'circom-pitfalls',
+  'neox-dkg.md': 'neox-dkg',
+  'aleo-zvote.md': 'aleo-zvote',
   'Delegatecall-History.md': 'delegatecall-history',
   'Proxy-Basics.md': 'proxy-basics',
   'Proxy-Identification.md': 'proxy-identification',

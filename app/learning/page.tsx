@@ -73,12 +73,12 @@ function LearningSection({ title, items }: { title: string; items: LearningItem[
           <div key={index} className="relative">
             <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-1">
               <div className="flex-1">
-                <h3 className="text-lg font-bold text-white mb-0.5">{item.institution}</h3>
-                <p className="text-base text-zinc-300 mb-0.5">{item.program}</p>
+                <h3 className="text-lg font-bold mb-0.5">{item.institution}</h3>
+                <p className="text-base text-white/50 mb-0.5">{item.program}</p>
               </div>
 
               <div className="md:text-right mt-1 md:mt-0">
-                <p className="text-sm text-zinc-500 mb-1">{item.period}</p>
+                <p className="text-sm text-white/50 mb-1">{item.period}</p>
                 {item.links.length > 0 && (
                   <div className="flex flex-wrap gap-1 md:justify-end">
                     {item.links.map((link, linkIndex) => (
@@ -87,7 +87,7 @@ function LearningSection({ title, items }: { title: string; items: LearningItem[
                         href={link.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-white hover:text-zinc-300 underline text-sm"
+                        className="text-white/50 hover:text-white underline text-sm"
                       >
                         [{link.text}]
                       </a>
@@ -97,7 +97,7 @@ function LearningSection({ title, items }: { title: string; items: LearningItem[
               </div>
             </div>
 
-            <p className="text-zinc-300 leading-relaxed text-sm">{item.details}</p>
+            <p className="text-white/50 leading-relaxed text-sm">{item.details}</p>
           </div>
         ))}
       </div>

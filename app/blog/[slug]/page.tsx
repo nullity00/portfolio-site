@@ -80,18 +80,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               <h1 className="text-3xl font-bold text-white mb-4">
                 {post.title}
               </h1>
-              
+
               {post.description && (
-                <p className="text-lg text-zinc-400 leading-relaxed mb-4">
+                <p className="text-lg text-white/50 leading-relaxed">
                   {post.description}
                 </p>
               )}
-              
-              <div className="flex items-center gap-4 text-sm text-zinc-500 pt-4 border-t border-zinc-800">
-                <span>Category: {post.category || 'Blog'}</span>
-                <span>•</span>
-                <span>Slug: {post.slug}</span>
-              </div>
             </header>
 
             {/* Article Content */}

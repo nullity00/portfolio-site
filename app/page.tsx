@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import Link from 'next/link'
 import Navigation from './components/Navigation'
 
 export default function HomePage() {
@@ -41,12 +42,12 @@ export default function HomePage() {
                 >
                   Mina Attestations | TypeScript, o1js
                 </a>
-                <a
+                <Link
                   href="/career"
                   className="inline-block text-zinc-400 hover:text-white transition-colors text-base mt-2"
                 >
                   View More →
-                </a>
+                </Link>
               </div>
             </div>
 
@@ -54,24 +55,24 @@ export default function HomePage() {
             <div className="mb-6">
               <h2 className="text-xl font-semibold mb-3">Blogs</h2>
               <div className="space-y-2">
-                <a
-                  href="/blog/fiat-shamir"
+                <Link
+                  href="/blog/fiat-shamir-pitfalls"
                   className="block text-base text-white/50 hover:text-white transition-colors"
                 >
                   Fiat-Shamir Pitfalls
-                </a>
-                <a
-                  href="/blog/circom"
+                </Link>
+                <Link
+                  href="/blog/change-circom-prime-field"
                   className="block text-base text-white/50 hover:text-white transition-colors"
                 >
                   Changing Circom Prime Field
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/blog"
                   className="inline-block text-zinc-400 hover:text-white transition-colors text-base mt-2"
                 >
                   View More →
-                </a>
+                </Link>
               </div>
             </div>
 
@@ -103,12 +104,12 @@ export default function HomePage() {
                 >
                   huff-puzzles
                 </a>
-                <a
+                <Link
                   href="/projects"
                   className="inline-block text-zinc-400 hover:text-white transition-colors text-base mt-2"
                 >
                   View More →
-                </a>
+                </Link>
               </div>
             </div>
           </div>

@@ -114,7 +114,7 @@ export default function BlogListing({ blogPosts }: BlogListingProps) {
                     </Link>
 
                     {post.description && (
-                      <p className="text-white/80 text-base leading-relaxed">
+                      <p className="text-white/50 text-base leading-relaxed">
                         {post.description}
                       </p>
                     )}

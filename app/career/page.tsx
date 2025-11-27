@@ -117,11 +117,11 @@ export default function CareerPage() {
               <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-1">
                 <div className="flex-1">
                   <h2 className="text-lg font-bold mb-0.5">{item.company}</h2>
-                  <p className="text-base text-white/80 mb-0.5">{item.role}</p>
+                  <p className="text-base text-white/50 mb-0.5">{item.role}</p>
                 </div>
 
                 <div className="md:text-right mt-1 md:mt-0">
-                  <p className="text-sm text-white/80 mb-1">{item.period}</p>
+                  <p className="text-sm text-white/50 mb-1">{item.period}</p>
                   <div className="flex flex-wrap gap-1 md:justify-end">
                     {item.links.map((link, linkIndex) => (
                       <a
@@ -129,7 +129,7 @@ export default function CareerPage() {
                         href={link.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-white/80 hover:text-white underline text-sm"
+                        className="text-white/50 hover:text-white underline text-sm"
                       >
                         [{link.text}]
                       </a>
@@ -139,12 +139,12 @@ export default function CareerPage() {
               </div>
 
               <div className="leading-relaxed">
-                <p className="mb-1 text-sm text-white/80">{item.details}</p>
+                <p className="mb-1 text-sm text-white/50">{item.details}</p>
 
                 {item.accomplishments.length > 0 && (
                   <>
                     <h3 className="text-sm font-semibold mb-1">Accomplishments</h3>
-                    <ul className="list-disc list-inside space-y-0.5 text-white/80 text-sm">
+                    <ul className="list-disc list-inside space-y-0.5 text-white/50 text-sm">
                       {item.accomplishments.map((accomplishment, accIndex) => (
                         <li key={accIndex}>{accomplishment}</li>
                       ))}

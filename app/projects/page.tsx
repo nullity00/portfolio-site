@@ -98,12 +98,12 @@ const projectCategories: ProjectCategory[] = [
 function ProjectCategory({ category }: { category: ProjectCategory }) {
   return (
     <div className="mb-6">
-      <h2 className="text-base font-bold mb-3 text-white">{category.title}</h2>
+      <h2 className="text-base font-bold mb-3">{category.title}</h2>
       <div className="grid gap-2 md:grid-cols-2">
         {category.projects.map((project, index) => (
           <div key={index} className="border border-zinc-700 rounded p-2 hover:border-zinc-500 transition-colors">
             <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-1">
-              <h3 className="text-sm font-semibold text-white mb-0.5">{project.name}</h3>
+              <h3 className="text-sm font-semibold mb-0.5">{project.name}</h3>
               <div className="flex flex-wrap gap-1">
                 {project.links.map((link, linkIndex) => (
                   <a
@@ -111,14 +111,14 @@ function ProjectCategory({ category }: { category: ProjectCategory }) {
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-white hover:text-zinc-300 underline text-xs"
+                    className="text-white/50 hover:text-white underline text-xs"
                   >
                     [{link.text}]
                   </a>
                 ))}
               </div>
             </div>
-            <p className="text-zinc-300 leading-relaxed text-xs">{project.description}</p>
+            <p className="text-white/50 leading-relaxed text-xs">{project.description}</p>
           </div>
         ))}
       </div>

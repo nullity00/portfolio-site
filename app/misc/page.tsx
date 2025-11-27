@@ -52,10 +52,10 @@ function MiscSection({ title, items }: { title: string; items: MiscItem[] }) {
             
             <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-1">
               <div className="flex-1">
-                <h3 className="text-sm font-bold text-white mb-0.5">{item.title}</h3>
-                <p className="text-xs text-zinc-300 mb-0.5">{item.category}</p>
-                <p className="text-xs text-zinc-500 mb-1">{item.period}</p>
-                
+                <h3 className="text-sm font-bold mb-0.5">{item.title}</h3>
+                <p className="text-xs text-white/50 mb-0.5">{item.category}</p>
+                <p className="text-xs text-white/50 mb-1">{item.period}</p>
+
                 {item.links.length > 0 && (
                   <div className="flex flex-wrap gap-1 mb-1">
                     {item.links.map((link, linkIndex) => (
@@ -64,7 +64,7 @@ function MiscSection({ title, items }: { title: string; items: MiscItem[] }) {
                         href={link.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-white hover:text-zinc-300 underline text-xs"
+                        className="text-white/50 hover:text-white underline text-xs"
                       >
                         [{link.text}]
                       </a>
@@ -73,8 +73,8 @@ function MiscSection({ title, items }: { title: string; items: MiscItem[] }) {
                 )}
               </div>
             </div>
-            
-            <p className="text-zinc-300 leading-relaxed text-xs">{item.details}</p>
+
+            <p className="text-white/50 leading-relaxed text-xs">{item.details}</p>
           </div>
         ))}
       </div>
