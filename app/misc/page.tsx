@@ -38,6 +38,13 @@ const communityData: MiscItem[] = [
     period: "Aug 2023 - Sept 2023",
     links: [{ text: "Site", url: "https://github.com/nullity00/zkzk" }],
     details: "Led a fast paced learning group covering circuit development in Halo2, Plonky2, Circom, Proof systems like Plonk & Security Reviews from of ZK Protocols."
+  },
+  {
+    title: "Proofs & Args Notes",
+    category: "Study Session",
+    period: "Post-ZKZK",
+    links: [{ text: "Notes", url: "https://nullity00.notion.site/Justin-Thaler-Proofs-Args-0cd79d9f70c34c26a12f37243a3092cb" }],
+    details: "Study notes on Justin Thaler's famous book 'Proofs, Arguments, and Zero-Knowledge'."
   }
 ]
 
@@ -59,15 +66,17 @@ function MiscSection({ title, items }: { title: string; items: MiscItem[] }) {
                 {item.links.length > 0 && (
                   <div className="flex flex-wrap gap-1 mb-1">
                     {item.links.map((link, linkIndex) => (
-                      <a
-                        key={linkIndex}
-                        href={link.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-white/50 hover:text-white underline text-xs"
-                      >
-                        [{link.text}]
-                      </a>
+                      <span key={linkIndex} className="text-white/50 text-xs">
+                        [<a
+                          href={link.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:opacity-80 underline"
+                          style={{ color: '#7900FF' }}
+                        >
+                          {link.text}
+                        </a>]
+                      </span>
                     ))}
                   </div>
                 )}

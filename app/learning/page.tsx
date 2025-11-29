@@ -11,27 +11,6 @@ interface LearningItem {
 
 const onlineLearning: LearningItem[] = [
   {
-    institution: "ZK Camp",
-    program: "Aztec Cohort 1",
-    period: "August 2023",
-    links: [{ text: "site", url: "https://www.zkcamp.xyz/aztec" }],
-    details: "Explored Noir's novel intermediate representation (ACIR), constraints optimizations, and security."
-  },
-  {
-    institution: "ABCDELabs",
-    program: "Hacker Camp",
-    period: "July - Sept 2023",
-    links: [{ text: "site", url: "https://www.abcde.com" }],
-    details: "ZK Camp is a two-month hybrid program consisting of ZK curriculum, ZK Hackathon and Demo Day."
-  },
-  {
-    institution: "BTA",
-    program: "Understanding and Developing on Zcash",
-    period: "June 2023",
-    links: [{ text: "site", url: "https://blockchaintrainingalliance.com/products/zcash" }],
-    details: "Learnt the foundations of Zcash, its use cases, development & governance, halo2 in zcash."
-  },
-  {
     institution: "UC Berkeley RDI",
     program: "ZKP MOOC",
     period: "Feb - May 2023",
@@ -68,13 +47,13 @@ function LearningSection({ title, items }: { title: string; items: LearningItem[
   return (
     <div className="mb-6">
       <h2 className="text-lg font-bold mb-3">{title}</h2>
-      <div className="space-y-3">
+      <div className="space-y-8">
         {items.map((item, index) => (
           <div key={index} className="relative">
             <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-1">
               <div className="flex-1">
                 <h3 className="text-lg font-bold mb-0.5">{item.institution}</h3>
-                <p className="text-base text-white/50 mb-0.5">{item.program}</p>
+                <p className="text-base text-white/70 mb-0.5">{item.program}</p>
               </div>
 
               <div className="md:text-right mt-1 md:mt-0">
@@ -82,15 +61,17 @@ function LearningSection({ title, items }: { title: string; items: LearningItem[
                 {item.links.length > 0 && (
                   <div className="flex flex-wrap gap-1 md:justify-end">
                     {item.links.map((link, linkIndex) => (
-                      <a
-                        key={linkIndex}
-                        href={link.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-white/50 hover:text-white underline text-sm"
-                      >
-                        [{link.text}]
-                      </a>
+                      <span key={linkIndex} className="text-white/50 text-sm">
+                        [<a
+                          href={link.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:opacity-80 underline"
+                          style={{ color: '#7900FF' }}
+                        >
+                          {link.text}
+                        </a>]
+                      </span>
                     ))}
                   </div>
                 )}

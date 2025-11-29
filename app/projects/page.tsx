@@ -12,6 +12,93 @@ interface ProjectCategory {
   projects: Project[]
 }
 
+interface AuditReport {
+  date: string
+  project: string
+  target: string
+  framework: string
+  reportType: string
+  links: { label: string; url: string }[]
+}
+
+const auditReports: AuditReport[] = [
+  {
+    date: "July 2025",
+    project: "Neo X ZK-DKG",
+    target: "L1 Neo X zk-dkg functionality",
+    framework: "Rust, Gnark, Cryptography",
+    reportType: "Individual",
+    links: [
+      { label: "Internal Report", url: "https://github.com/nullity00/audits/blob/main/2025-07-Neo-zk-dkg.md" },
+      { label: "Hacken Report", url: "https://hacken.io/audits/neo-x/l1-neo-x-zk-dkg-functionality-jun2025/" }
+    ]
+  },
+  {
+    date: "April 2025",
+    project: "Mina Attestations",
+    target: "o1js circuits, credential verification",
+    framework: "TypeScript, o1js, ZK Circuits",
+    reportType: "Collaborative",
+    links: [
+      { label: "Internal Report", url: "https://github.com/nullity00/audits/blob/main/2025-04-Mina-Attestations.md" },
+      { label: "Hacken Report", url: "https://hacken.io/audits/mina/dapp-mina-mina-attestations-jan2025/" }
+    ]
+  },
+  {
+    date: "February 2025",
+    project: "Sig Network",
+    target: "Chain signatures cryptography",
+    framework: "Solidity, Cryptography",
+    reportType: "Collaborative",
+    links: [
+      { label: "Internal Report", url: "https://github.com/nullity00/audits/blob/main/2025-02-Signetwork.md" },
+      { label: "Hacken Report", url: "https://hacken.io/audits/sig-network/sca-sig-network-chain-signatures-jan2025/" }
+    ]
+  },
+  {
+    date: "May 2024",
+    project: "Summa Solvency A",
+    target: "Halo2 codebase, solvency proofs",
+    framework: "Rust, Halo2, ZK Circuits",
+    reportType: "Mentorship",
+    links: [
+      { label: "yAudit Report A", url: "https://reports.yaudit.dev/2024-05-Summa-Va" }
+    ]
+  },
+  {
+    date: "May 2024",
+    project: "Summa Solvency B",
+    target: "Halo2 codebase, solvency proofs",
+    framework: "Rust, Halo2, ZK Circuits",
+    reportType: "Mentorship",
+    links: [
+      { label: "yAudit Report B", url: "https://reports.yaudit.dev/2024-05-Summa-Vb" }
+    ]
+  },
+  {
+    date: "June 2023",
+    project: "Spartan ECDSA",
+    target: "ECDSA verification in ZK",
+    framework: "Circom, ZK Circuits",
+    reportType: "Group Audit",
+    links: [
+      { label: "Internal Report", url: "https://github.com/nullity00/audits/blob/main/2023-06-Spartan-ecdsa.md" },
+      { label: "yAudit Report", url: "https://reports.yaudit.dev/2023-06-Spartan-ECDSA" }
+    ]
+  },
+  {
+    date: "June 2023",
+    project: "Rate Limiting Nullifier (RLN)",
+    target: "Spam prevention, anonymity",
+    framework: "Circom, ZK Circuits",
+    reportType: "Group Audit",
+    links: [
+      { label: "Internal Report", url: "https://github.com/nullity00/audits/blob/main/2023-06-RLN.md" },
+      { label: "yAudit Report", url: "https://reports.yaudit.dev/2023-06-RLN" }
+    ]
+  }
+]
+
 const projectCategories: ProjectCategory[] = [
   {
     title: "ZK",
@@ -35,26 +122,6 @@ const projectCategories: ProjectCategory[] = [
         name: "plonkathon",
         description: "Implementation of PLONK prover in python with detailed explanation",
         links: [{ text: "link", url: "https://github.com/nullity00/plonkathon" }]
-      }
-    ]
-  },
-  {
-    title: "Resources",
-    projects: [
-      {
-        name: "zk-security-reviews",
-        description: "Collection of security reviews of ZK Protocols",
-        links: [{ text: "link", url: "https://github.com/nullity00/zk-security-reviews" }]
-      }
-    ]
-  },
-  {
-    title: "Audit Reports",
-    projects: [
-      {
-        name: "audits",
-        description: "All of my audits aggregated in one repository. This includes smart contracts in Solidity, circuits in circom & rust as well.",
-        links: [{ text: "link", url: "https://github.com/nullity00/audits" }]
       }
     ]
   },
@@ -84,6 +151,16 @@ const projectCategories: ProjectCategory[] = [
     ]
   },
   {
+    title: "Resources",
+    projects: [
+      {
+        name: "zk-security-reviews",
+        description: "Collection of security reviews of ZK Protocols",
+        links: [{ text: "link", url: "https://github.com/nullity00/zk-security-reviews" }]
+      }
+    ]
+  },
+  {
     title: "Blockchain",
     projects: [
       {
@@ -106,15 +183,17 @@ function ProjectCategory({ category }: { category: ProjectCategory }) {
               <h3 className="text-sm font-semibold mb-0.5">{project.name}</h3>
               <div className="flex flex-wrap gap-1">
                 {project.links.map((link, linkIndex) => (
-                  <a
-                    key={linkIndex}
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-white/50 hover:text-white underline text-xs"
-                  >
-                    [{link.text}]
-                  </a>
+                  <span key={linkIndex} className="text-white/50 text-xs">
+                    [<a
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:opacity-80 underline"
+                      style={{ color: '#7900FF' }}
+                    >
+                      {link.text}
+                    </a>]
+                  </span>
                 ))}
               </div>
             </div>
@@ -132,8 +211,75 @@ export default function ProjectsPage() {
       <Navigation currentPage="/projects" />
 
       <div className="max-w-4xl mx-auto px-4 py-4">
-        <h1 className="text-2xl font-bold mb-4">Projects</h1>
-        
+
+        {/* Audits Section */}
+        <div className="mb-8">
+          <h2 className="text-md font-bold mb-3">Audits</h2>
+          <p className="text-sm text-white/50 mb-4">
+            All of my audits aggregated in one repository. This includes smart contracts in Solidity, circuits in circom & rust as well.{' '}
+            <span className="text-white/50">
+              [<a
+                href="https://github.com/nullity00/audits"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:opacity-80 underline"
+                style={{ color: '#7900FF' }}
+              >
+                repo
+              </a>]
+            </span>
+          </p>
+
+          {/* Audit Reports Table */}
+          <div className="overflow-x-auto">
+            <table className="w-full text-xs border-collapse">
+              <thead>
+                <tr className="border-b border-zinc-700">
+                  <th className="text-left py-2 px-2 font-semibold text-white/70">Date</th>
+                  <th className="text-left py-2 px-2 font-semibold text-white/70">Project</th>
+                  <th className="text-left py-2 px-2 font-semibold text-white/70">Target</th>
+                  <th className="text-left py-2 px-2 font-semibold text-white/70">Framework/Language</th>
+                  <th className="text-left py-2 px-2 font-semibold text-white/70">Report Type</th>
+                  <th className="text-left py-2 px-2 font-semibold text-white/70">Links</th>
+                </tr>
+              </thead>
+              <tbody>
+                {auditReports.map((audit, index) => (
+                  <tr key={index} className="border-b border-zinc-800 hover:bg-zinc-900/30">
+                    <td className="py-2 px-2 text-white/50 font-semibold">{audit.date}</td>
+                    <td className="py-2 px-2 text-white/50">{audit.project}</td>
+                    <td className="py-2 px-2 text-white/50">{audit.target}</td>
+                    <td className="py-2 px-2 text-white/50">{audit.framework}</td>
+                    <td className="py-2 px-2 text-white/50">{audit.reportType}</td>
+                    <td className="py-2 px-2">
+                      <div className="flex flex-wrap gap-1">
+                        {audit.links.map((link, linkIndex) => (
+                          <span key={linkIndex} className="text-white/50">
+                            [<a
+                              href={link.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="hover:opacity-80 underline"
+                              style={{ color: '#7900FF' }}
+                            >
+                              {link.label}
+                            </a>]
+                          </span>
+                        ))}
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* Projects Section */}
+        <div className="mb-4">
+          <h2 className="text-lg font-bold mb-3">Projects</h2>
+        </div>
+
         <div className="space-y-6">
           {projectCategories.map((category, index) => (
             <ProjectCategory key={index} category={category} />

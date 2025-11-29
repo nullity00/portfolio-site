@@ -30,23 +30,27 @@ export default function HomePage() {
                   href="https://github.com/nullity00/audits/blob/main/2025-07-Neo-zk-dkg.md"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block text-base text-white/50 hover:text-white transition-colors"
+                  className="block text-base text-white/50 transition-colors group"
+                  style={{ ['--hover-color' as any]: '#7900FF' }}
                 >
-                  Neo X ZK-DKG | Rust, Gnark
+                  <span className="group-hover:text-[#7900FF]">Neo X ZK-DKG | Rust, Gnark</span>
+                  <span className="opacity-0 group-hover:opacity-100 transition-opacity"> ↗</span>
                 </a>
                 <a
                   href="https://github.com/nullity00/audits/blob/main/2025-04-Mina-Attestations.md"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block text-base text-white/50 hover:text-white transition-colors"
+                  className="block text-base text-white/50 transition-colors group"
                 >
-                  Mina Attestations | TypeScript, o1js
+                  <span className="group-hover:text-[#7900FF]">Mina Attestations | TypeScript, o1js</span>
+                  <span className="opacity-0 group-hover:opacity-100 transition-opacity"> ↗</span>
                 </a>
                 <Link
                   href="/career"
-                  className="inline-block text-zinc-400 hover:text-white transition-colors text-base mt-2"
+                  className="inline-block text-white/30 transition-colors text-sm mt-2 group"
                 >
-                  View More →
+                  <span className="group-hover:text-[#7900FF]">View All</span>
+                  <span className="opacity-0 group-hover:opacity-100 transition-opacity"> ↗</span>
                 </Link>
               </div>
             </div>
@@ -57,21 +61,24 @@ export default function HomePage() {
               <div className="space-y-2">
                 <Link
                   href="/blog/fiat-shamir-pitfalls"
-                  className="block text-base text-white/50 hover:text-white transition-colors"
+                  className="block text-base text-white/50 transition-colors group"
                 >
-                  Fiat-Shamir Pitfalls
+                  <span className="group-hover:text-[#7900FF]">Fiat-Shamir Pitfalls</span>
+                  <span className="opacity-0 group-hover:opacity-100 transition-opacity"> ↗</span>
                 </Link>
                 <Link
                   href="/blog/change-circom-prime-field"
-                  className="block text-base text-white/50 hover:text-white transition-colors"
+                  className="block text-base text-white/50 transition-colors group"
                 >
-                  Changing Circom Prime Field
+                  <span className="group-hover:text-[#7900FF]">Changing Circom Prime Field</span>
+                  <span className="opacity-0 group-hover:opacity-100 transition-opacity"> ↗</span>
                 </Link>
                 <Link
                   href="/blog"
-                  className="inline-block text-zinc-400 hover:text-white transition-colors text-base mt-2"
+                  className="inline-block text-white/30 transition-colors text-sm mt-2 group"
                 >
-                  View More →
+                  <span className="group-hover:text-[#7900FF]">View All</span>
+                  <span className="opacity-0 group-hover:opacity-100 transition-opacity"> ↗</span>
                 </Link>
               </div>
             </div>
@@ -84,31 +91,35 @@ export default function HomePage() {
                   href="https://github.com/nullity00/batch-ecdsa-secp256r1"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block text-base text-white/50 hover:text-white transition-colors"
+                  className="block text-base text-white/50 transition-colors group"
                 >
-                  batch-ecdsa-secp256r1
+                  <span className="group-hover:text-[#7900FF]">batch-ecdsa-secp256r1</span>
+                  <span className="opacity-0 group-hover:opacity-100 transition-opacity"> ↗</span>
                 </a>
                 <a
                   href="https://github.com/nullity00/circom-circuits"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block text-base text-white/50 hover:text-white transition-colors"
+                  className="block text-base text-white/50 transition-colors group"
                 >
-                  circom-circuits
+                  <span className="group-hover:text-[#7900FF]">circom-circuits</span>
+                  <span className="opacity-0 group-hover:opacity-100 transition-opacity"> ↗</span>
                 </a>
                 <a
                   href="https://github.com/nullity00/huff-puzzles"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block text-base text-white/50 hover:text-white transition-colors"
+                  className="block text-base text-white/50 transition-colors group"
                 >
-                  huff-puzzles
+                  <span className="group-hover:text-[#7900FF]">huff-puzzles</span>
+                  <span className="opacity-0 group-hover:opacity-100 transition-opacity"> ↗</span>
                 </a>
                 <Link
                   href="/projects"
-                  className="inline-block text-zinc-400 hover:text-white transition-colors text-base mt-2"
+                  className="inline-block text-white/30 transition-colors text-sm mt-2 group"
                 >
-                  View More →
+                  <span className="group-hover:text-[#7900FF]">View All</span>
+                  <span className="opacity-0 group-hover:opacity-100 transition-opacity"> ↗</span>
                 </Link>
               </div>
             </div>
@@ -159,24 +170,18 @@ export default function HomePage() {
                 />
               </div>
 
-              <div className="space-y-2 text-center">
-                <h3 className="text-base font-semibold">Creator of</h3>
+              <div className="space-y-2">
+                <h3 className="text-xl font-semibold">Creator of</h3>
                 <a
                   href="https://zkglitch.xyz"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block text-base text-white/50 hover:text-white transition-colors"
+                  className="block text-base text-white/50 transition-colors group"
                 >
-                  zkglitch.xyz
+                  <span className="group-hover:text-[#7900FF]">zkglitch.xyz</span>
+                  <span className="opacity-0 group-hover:opacity-100 transition-opacity"> ↗</span>
                 </a>
-                <a
-                  href="https://nullity00.notion.site/Justin-Thaler-Proofs-Args-0cd79d9f70c34c26a12f37243a3092cb"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block text-base text-white/50 hover:text-white transition-colors"
-                >
-                  Proofs & Args Notes
-                </a>
+                <p className="text-xs text-white/50 italic">zk bug directory</p>
               </div>
             </div>
           </div>

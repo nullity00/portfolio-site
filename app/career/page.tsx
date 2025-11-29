@@ -13,23 +13,39 @@ interface CareerItem {
 const careerData: CareerItem[] = [
   {
     company: "yAudit",
-    role: "Core",
-    period: "Sept - Present",
+    role: "Core, ZK Resident Auditor",
+    period: "Oct 2023 - Sept 2025",
     links: [{ text: "site", url: "https://yaudit.dev/" }],
-    details: "...",
-    accomplishments: []
+    details: "",
+    accomplishments: [
+      "Audited ZK Protocols and Circuits as a resident auditor",
+      "Led rebranding initiatives of yAcademy and yAudit to Electisec (Jan 2025) and back to yAudit (Nov 2025), designed and maintained website, reports, blogs, and research site",
+      "Initiated strategy and future directions to grow the DAO, managed client payments and payouts, designed anonymous voting mechanism for DAO proposals",
+      "Organized regular resident catchup calls for research and blog posts, maintained website infrastructure (uptime, domain, patches)"
+    ]
+  },
+  {
+    company: "Hacken",
+    role: "Contractor - ZK Security Engineer",
+    period: "Feb 2025 - July 2025",
+    links: [{ text: "site", url: "https://hacken.io/" }],
+    details: "",
+    accomplishments: [
+      "Conducted 3 audits: Mina Attestations, Neo X zk-dkg, Sig Network",
+      "Assisted in establishing 'Cryptography Audits' as a service offering"
+    ]
   },
   {
     company: "yAudit",
     role: "Mentor (zBlock2)",
     period: "Jan 2024 - May 2024",
     links: [
-      { text: "site", url: "https://yaudit.dev/zBlock2" },
-      { text: "zBlock1", url: "https://yaudit.dev/zBlock1" }
+      { text: "site", url: "https://yaudit.dev/zBlock2" }
     ],
-    details: "The second zero-knowledge auditing fellowship centered around the PSE-Halo2 development framework and the KZG commitment scheme.",
+    details: "",
     accomplishments: [
-      "Mentored fellows in auditing the Summa Protocol, a blockchain-based solution for providing proof of solvency for financial entities."
+      "Mentored fellows on PSE-Halo2 framework and KZG commitment scheme, focusing on Polyexen & Halo2-analyzer tooling",
+      "Organized bounties & supervised fellows on Verifier Validator Registry and Mock Prover cell override feature in PSE's Halo2 fork"
     ]
   },
   {
@@ -37,13 +53,12 @@ const careerData: CareerItem[] = [
     role: "Grantee (P256 Project)",
     period: "Oct 2023",
     links: [
-      { text: "site", url: "https://ethereum.org/en/community/grants/" },
       { text: "code", url: "https://github.com/nullity00/batch-ecdsa-secp256r1" }
     ],
-    details: "Research & development grant for Batch ECDSA Signatures using P256 curve to facilitate verification of signatures from Secure Enclave. Funded by PolygonDAO, GR14 & Push Protocol.",
+    details: "",
     accomplishments: [
-      "Developed circuits using circom & Nova library for signature folding",
-      "Created batch verification circuit using randomizers"
+      "R&D grant for Batch ECDSA Signatures using P256 curve to facilitate verification of signatures from Secure Enclave",
+      "Developed circuits using circom & Nova library for signature folding and batch verification using randomizers"
     ]
   },
   {
@@ -54,12 +69,11 @@ const careerData: CareerItem[] = [
       { text: "site", url: "https://yaudit.dev/" },
       { text: "reports", url: "https://github.com/nullity00/audits" }
     ],
-    details: "5-week program for zk auditors to audit circom codebases.",
+    details: "",
     accomplishments: [
-      "Awarded Top Fellow Award for zBlock1 cohort",
-      "Audited Rate Limiting Nullifier (PSE) & Spartan ECDSA (Personae Labs)",
-      "Explored formal verification tools: Picus & Ecne",
-      "Tutored peers on ZK theory & Circom"
+      "Awarded Top Fellow Award for zBlock1 cohort in 5-week program for auditing circom codebases",
+      "Found a high vulnerability in Spartan ECDSA which led to constraint count reduction, audited Rate Limiting Nullifier (PSE)",
+      "Explored formal verification tools (Picus & Ecne) and tutored peers on ZK theory & Circom"
     ]
   },
   {
@@ -70,11 +84,10 @@ const careerData: CareerItem[] = [
       { text: "site", url: "https://spect.network" },
       { text: "code", url: "https://github.com/spect-ai" }
     ],
-    details: "Web3 forms, projects & automations for DAOs. Funded by PolygonDAO, GR14 & Push Protocol.",
+    details: "",
     accomplishments: [
-      "Built frontend using React.js & Next.js",
-      "Integrated Soulbound Tokens into Spect Profiles",
-      "Developed GitHub bot using GitHub API & webhooks",
+      "Built Web3 forms, projects & automations for DAOs using React.js, Next.js (funded by PolygonDAO, GR14 & Push Protocol)",
+      "Integrated Soulbound Tokens into Spect Profiles and developed GitHub bot using API & webhooks",
       "Created CQRS endpoints with Nest.js, Mongoose, MongoDB"
     ]
   },
@@ -86,9 +99,9 @@ const careerData: CareerItem[] = [
       { text: "site", url: "https://www.linkedin.com/company/flawed-arts/" },
       { text: "portfolio", url: "https://www.instagram.com/flawed.arts_/" }
     ],
-    details: "Indian Graphic design and Digital Marketing company.",
+    details: "",
     accomplishments: [
-      "Designed & developed client applications using Wordpress, Elementor, Figma, JS frameworks & Django",
+      "Designed & developed client applications for graphic design and digital marketing company using Wordpress, Elementor, Figma, JS frameworks & Django",
       "Built POS applications using React.js, MongoDB & AWS S3"
     ]
   },
@@ -110,29 +123,31 @@ export default function CareerPage() {
       <div className="max-w-4xl mx-auto px-4 py-4">
         <h1 className="text-2xl font-bold mb-4">Career</h1>
         
-        <div className="space-y-4">
+        <div className="space-y-8">
           {careerData.map((item, index) => (
             <div key={index} className="relative">
 
               <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-1">
                 <div className="flex-1">
                   <h2 className="text-lg font-bold mb-0.5">{item.company}</h2>
-                  <p className="text-base text-white/50 mb-0.5">{item.role}</p>
+                  <p className="text-base text-white/70 mb-0.5">{item.role}</p>
                 </div>
 
                 <div className="md:text-right mt-1 md:mt-0">
                   <p className="text-sm text-white/50 mb-1">{item.period}</p>
                   <div className="flex flex-wrap gap-1 md:justify-end">
                     {item.links.map((link, linkIndex) => (
-                      <a
-                        key={linkIndex}
-                        href={link.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-white/50 hover:text-white underline text-sm"
-                      >
-                        [{link.text}]
-                      </a>
+                      <span key={linkIndex} className="text-white/50 text-sm">
+                        [<a
+                          href={link.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:opacity-80 underline"
+                          style={{ color: '#7900FF' }}
+                        >
+                          {link.text}
+                        </a>]
+                      </span>
                     ))}
                   </div>
                 </div>
@@ -143,7 +158,7 @@ export default function CareerPage() {
 
                 {item.accomplishments.length > 0 && (
                   <>
-                    <h3 className="text-sm font-semibold mb-1">Accomplishments</h3>
+                    <h3 className="text-sm font-semibold mb-1 text-white/70">Accomplishments</h3>
                     <ul className="list-disc list-inside space-y-0.5 text-white/50 text-sm">
                       {item.accomplishments.map((accomplishment, accIndex) => (
                         <li key={accIndex}>{accomplishment}</li>

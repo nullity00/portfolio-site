@@ -98,38 +98,28 @@ export default function BlogListing({ blogPosts }: BlogListingProps) {
               const headings = extractHeadings(post.contentHtml);
               
               return (
-                <article 
+                <Link
                   key={post.slug}
-                  className="rounded-lg p-6 hover:bg-zinc-900 transition-colors"
+                  href={`/blog/${post.slug}`}
+                  className="block"
                 >
-                  {/* Post Header */}
-                  <header className="mb-4">
-                    <Link
-                      href={`/blog/${post.slug}`}
-                      className="block group"
-                    >
-                      <h2 className="text-xl font-bold text-white group-hover:text-zinc-300 transition-colors mb-2">
+                  <article
+                    className="rounded-lg p-6 hover:bg-zinc-900 transition-colors cursor-pointer"
+                  >
+                    {/* Post Header */}
+                    <header>
+                      <h2 className="text-lg font-bold text-white mb-2">
                         {post.title}
                       </h2>
-                    </Link>
 
-                    {post.description && (
-                      <p className="text-white/50 text-base leading-relaxed">
-                        {post.description}
-                      </p>
-                    )}
-                  </header>
-
-                  {/* Read More Link */}
-                  <div className="pt-4">
-                    <Link
-                      href={`/blog/${post.slug}`}
-                      className="inline-flex items-center text-white hover:text-zinc-300 transition-colors text-base font-medium"
-                    >
-                      Read full article →
-                    </Link>
-                  </div>
-                </article>
+                      {post.description && (
+                        <p className="text-white/50 text-sm leading-relaxed">
+                          {post.description}
+                        </p>
+                      )}
+                    </header>
+                  </article>
+                </Link>
               );
             })
           ) : (
