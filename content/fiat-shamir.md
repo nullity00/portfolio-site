@@ -5,16 +5,17 @@ category: "blog"
 description: "Understanding Fiat-Shamir transformation, its implementation pitfalls, and security considerations in zero-knowledge proof systems"
 ---
 
-# What is Fiat Shamir ?
+# Fiat Shamir Transformation and Security Pitfalls
 
-The Pitfalls
+## Table of Contents
 
-1. Weak F-S Implementation
-2. Grinding Attacks
-3. State Restoration Attacks
-4. Fault Injection Attacks
-
-Resources
+1. [What is Fiat Shamir?](#what-is-fiat-shamir-)
+2. [The Pitfalls](#the-pitfalls)
+   - [1. Weak F-S implementation](#1-weak-f-s-implementation)
+   - [2. Grinding Attacks](#2-grinding-attacks)
+   - [3. State Restoration Attacks](#3-state-restoration-attacks)
+   - [4. Fault Injection Attacks](#4-fault-injection-attacks)
+3. [Resources](#resources)
 
 ## What is Fiat Shamir ?
 

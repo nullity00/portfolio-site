@@ -51,7 +51,7 @@ const careerData: CareerItem[] = [
   {
     company: "Ethereum Foundation",
     role: "Grantee (P256 Project)",
-    period: "Oct 2023",
+    period: "Oct 2023 - Jan 2023",
     links: [
       { text: "code", url: "https://github.com/nullity00/batch-ecdsa-secp256r1" }
     ],

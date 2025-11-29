@@ -7,6 +7,12 @@ description: "Guide on how to change the prime field in circom to support differ
 
 # Change circom's prime Field
 
+## Table of Contents
+
+1. [Steps to change the prime field](#steps-to-change-the-prime-field)
+2. [Caveats](#caveats)
+3. [Implementations](#implementations)
+
 Circom operates over the prime field of `p = 21888242871839275222246405745257275088548364400416034343698204186575808495617` which is the Field Modulus of `BN254` curve. This might be because of the existing support for `BN254` curves in the Ethereum ecosystem like precompiles (add, mul, pairing), powers of tau parameters & so on. 
 
 Circom supports these curves as of now : `bn128`, `bls12381`, `goldilocks`, `grumpkin`, `pallas`, `vesta` . Refer [here](https://github.com/iden3/circom/blob/master/mkdocs/docs/getting-started/compilation-options.md)

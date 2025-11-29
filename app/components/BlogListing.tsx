@@ -92,33 +92,19 @@ export default function BlogListing({ blogPosts }: BlogListingProps) {
         </div>
 
         {/* Blog Posts */}
-        <div className="space-y-6">
+        <div className="space-y-2">
           {filteredPosts.length > 0 ? (
             filteredPosts.map((post) => {
               const headings = extractHeadings(post.contentHtml);
-              
+
               return (
                 <Link
                   key={post.slug}
                   href={`/blog/${post.slug}`}
-                  className="block"
+                  className="block text-base text-white transition-colors group"
                 >
-                  <article
-                    className="rounded-lg p-6 hover:bg-zinc-900 transition-colors cursor-pointer"
-                  >
-                    {/* Post Header */}
-                    <header>
-                      <h2 className="text-lg font-bold text-white mb-2">
-                        {post.title}
-                      </h2>
-
-                      {post.description && (
-                        <p className="text-white/50 text-sm leading-relaxed">
-                          {post.description}
-                        </p>
-                      )}
-                    </header>
-                  </article>
+                  <span className="group-hover:text-[#7900FF]">{post.title}</span>
+                  <span className="opacity-0 group-hover:opacity-100 transition-opacity"> ↗</span>
                 </Link>
               );
             })

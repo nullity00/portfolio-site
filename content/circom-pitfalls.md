@@ -7,6 +7,19 @@ description: "Common security vulnerabilities in Circom circuits and how to avoi
 
 # 5 Circom Security Pitfalls That Can Break Your Proofs
 
+## Table of Contents
+
+1. [Circom in 60 Seconds](#circom-in-60-seconds)
+2. [Common Circom Pitfalls (and Solutions)](#common-circom-pitfalls-and-solutions)
+   - [1. Misunderstanding Assignments vs. Constraints](#1-misunderstanding-assignments-vs-constraints)
+   - [2. Broken Circuit Dependence Graph](#2-broken-circuit-dependence-graph)
+   - [3. Missing essential logic constraints](#3-missing-essential-logic-constraints)
+   - [4. Unsafe component and signal usage](#4-unsafe-component-and-signal-usage)
+   - [5. Overlooking Edge cases](#5-overlooking-edge-cases)
+3. [Summary](#summary)
+4. [Resources](#resources)
+
+
 ## Circom in 60 Seconds
 
 Circom (short for Circuit Compiler) is a programming language used for creating zero-knowledge proofs (zk-SNARKs) circuits.

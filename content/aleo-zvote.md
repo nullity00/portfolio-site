@@ -7,6 +7,23 @@ description: "A comprehensive guide to building private voting systems using zer
 
 # Building Private Voting with ZK: A Deep Dive into Aleo's zVote
 
+## Table of Contents
+
+1. [Aleo Ecosystem Overview](#aleo-ecosystem-overview)
+   - [What is Aleo?](#what-is-aleo)
+   - [The ZK Architecture](#the-zk-architecture)
+   - [Consensus: Proof of Stake + ZK](#consensus-proof-of-stake--zk)
+   - [Aleo VM (AVM)](#aleo-vm-avm)
+   - [SnarkOS and SnarkVM](#snarkos-and-snarkvm-core-components-protocol-infrastructure)
+2. [Leo Language Fundamentals](#leo-language-fundamentals)
+   - [The Compilation Pipeline](#the-compilation-pipeline)
+   - [Core Language Features](#core-language-features)
+3. [zVote Architecture](#zvote-architecture)
+4. [Implementation: Code Walkthrough](#implementation-code-walkthrough)
+5. [ZK Cryptography](#zk-cryptography)
+6. [Security Considerations](#security-considerations)
+7. [Resources](#resources)
+
 ## Aleo Ecosystem Overview
 
 ### What is Aleo?

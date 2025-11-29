@@ -7,6 +7,19 @@ description: "A simplified guide to understanding PLONK, covering trusted setup,
 
 # PLONK in Plain English
 
+## Table of Contents
+
+1. [Details to consider](#details-to-consider)
+2. [Part 1 - The age of trusted setup](#part-1---the-age-of-trusted-setup)
+3. [Part 2 - The never ending rounds](#part-2---the-never-ending-rounds)
+   - [Round 1](#round-1)
+   - [Round 2](#round-2)
+   - [Round 3](#round-3)
+   - [Round 4](#round-4)
+   - [Round 5](#round-5)
+4. [PLONK in Rust](#plonk-in-rust)
+5. [Now, try Goblin Plonk](#now-try-goblin-plonk-this-has-nothing-to-do-with-plonk)
+
 Credits: [0xSachin](https://twitter.com/0xSachinK), [madab](https://twitter.com/iammadab), [mikefrancis](https://twitter.com/only1franchesco)
 
 This is probably the simplest way to get to know how PLONK works. Just a few prereq:

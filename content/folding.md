@@ -7,6 +7,16 @@ description: "Understanding folding schemes in zero-knowledge proofs, exploring 
 
 # Folding Schemes: From Nova to ProtoGalaxy
 
+## Table of Contents
+
+1. [Folding Schemes](#folding-schemes)
+   - [1. Nova](#1-nova)
+   - [2. SuperNova](#2-supernova)
+   - [3. HyperNova](#3-hypernova)
+   - [4. Sangria](#4-sangria)
+   - [5. ProtoStar](#5-protostar)
+2. [Resources](#resources)
+
 Folding schemes have been the buzz in the Zero Knowledge Ecosystem of 2023. But what's the lowdown? Let's start from the basics: SNARKs!
 
 SNARKs are cryptographic proof systems that let a prover convince a verifier they 'know' something, without revealing the details. As wonderful as it looks, SNARks have their own tradeoffs. Fast provers mean long proofs, making verification a headache. Slow provers create short proofs, but they're, well, slow. But what if we could somehow reduce the proving & verification costs by proving that the verification of a program was done correctly? And there you have a one-level recursive SNARK.
@@ -73,7 +83,7 @@ Before moving on to HyperNova, let's decode a few buzz words.
 
 **Customizable Constraint System:**
 
-CCS is a generalization of R1CS that can simultaneously capture R1CS, Plonkish, and AIR without overheads. An R1CS equation looks like this: $Az \cdot Bz = Cz$ where $A, B, C$ are constraint matrices and $z$ is the instance vector containing witness $w$ and public input $x$. CCS generalizes this into the equation $\sum_{i \in q} M_j \cdot z = 0$, $M_j$ could be matrices (eg., $A, B$ and $-C$) & $z$ is the instance vector.
+CCS is a generalization of R1CS that can simultaneously capture R1CS, Plonkish, and AIR without overheads. An R1CS equation looks like this: $ Az \cdot Bz = Cz$ where $A, B, C$ are constraint matrices and $z$ is the instance vector containing witness $w$ and public input $x$. CCS generalizes this into the equation $\sum_{i \in q} M_j \cdot z = 0$, $M_j$ could be matrices (eg., $A, B$ and $-C$) & $z$ is the instance vector.
 
 The latest addition to the Nova family is HyperNova, where steps in incremental computations are expressed with CCS (Customizable Constraint System) & performs a randomized sumcheck protocol to accumulate a new instance. The folding technique employed here is a generalization of folding schemes referred to as multi-folding scheme. HyperNova also introduces **nlookup**, a lookup argument compatible with the Nova family.
 

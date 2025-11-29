@@ -55,7 +55,7 @@
 .markdown-content p {
   margin: 1em 0;
   line-height: 1.6;
-  color: #d4d4d8;
+  color: rgba(255, 255, 255, 0.5);
 }
 
 /* Proper list styling - Dark theme */
@@ -76,7 +76,7 @@
 .markdown-content li {
   margin: 0.5em 0;
   line-height: 1.6;
-  color: #d4d4d8;
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .markdown-content li ul,
@@ -86,7 +86,7 @@
 
 /* Code styling - Dark theme */
 .markdown-content code {
-  background: #3f3f46;
+  background: rgba(255, 255, 255, 0.1);
   color: #fbbf24;
   padding: 0.2em 0.4em;
   border-radius: 0.25rem;
@@ -95,7 +95,7 @@
 }
 
 .markdown-content pre {
-  background: #27272a;
+  background: rgba(255, 255, 255, 0.05);
   border-radius: 0.5rem;
   padding: 1rem;
   margin: 1.5rem 0;
@@ -111,17 +111,17 @@
   color: #e4e4e7;
 }
 
-/* Link styling - Dark theme with white accent */
+/* Link styling - Dark theme with purple accent */
 .markdown-content a {
-  color: #ffffff;
+  color: #7900FF;
   text-decoration: none;
   transition: color 0.2s;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  border-bottom: 1px solid rgba(121, 0, 255, 0.3);
 }
 
 .markdown-content a:hover {
-  color: #d4d4d8;
-  border-bottom-color: #d4d4d8;
+  color: #9933FF;
+  border-bottom-color: #9933FF;
 }
 
 /* External link indicator - Dark theme */
@@ -158,7 +158,7 @@
   overflow-wrap: break-word;
   white-space: normal;
   min-width: 140px; /* Increased from 120px */
-  color: #d4d4d8;
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .markdown-content th {
@@ -244,7 +244,7 @@
 .markdown-content blockquote {
   margin: 1.5rem 0;
   padding-left: 1rem;
-  color: #a1a1aa;
+  color: rgba(255, 255, 255, 0.5);
   font-style: italic;
   background: rgba(255, 255, 255, 0.05);
   padding: 1rem;
@@ -270,7 +270,7 @@
 /* Emphasis/italic text - Dark theme */
 .markdown-content em {
   font-style: italic;
-  color: #d4d4d8;
+  color: rgba(255, 255, 255, 0.5);
 }
 
 /* Jekyll-style Table of Contents - Dark theme */
@@ -318,10 +318,44 @@
   font-size: 1rem;
 }
 
-/* Code highlighting for dark theme */
+/* Code highlighting for dark theme with custom colors */
 .markdown-content code[class*="language-"] {
-  background: #27272a;
+  /* background: rgba(255, 255, 255, 0.15); */
   color: #e4e4e7;
+}
+
+/* Custom syntax highlighting colors */
+.markdown-content .hljs-keyword,
+.markdown-content .hljs-selector-tag,
+.markdown-content .hljs-literal,
+.markdown-content .hljs-title,
+.markdown-content .hljs-section,
+.markdown-content .hljs-doctag,
+.markdown-content .hljs-type,
+.markdown-content .hljs-name,
+.markdown-content .hljs-strong {
+  color: #7900FF;
+  font-weight: bold;
+}
+
+.markdown-content .hljs-string,
+.markdown-content .hljs-title,
+.markdown-content .hljs-name,
+.markdown-content .hljs-number,
+.markdown-content .hljs-symbol,
+.markdown-content .hljs-bullet,
+.markdown-content .hljs-attr,
+.markdown-content .hljs-template-variable,
+.markdown-content .hljs-variable,
+.markdown-content .hljs-link {
+  color: #E6795A;
+}
+
+.markdown-content .hljs-comment,
+.markdown-content .hljs-quote,
+.markdown-content .hljs-meta {
+  color: rgba(255, 255, 255, 0.5);
+  font-style: italic;
 }
 
 /* Modern mark/highlight styling for search */

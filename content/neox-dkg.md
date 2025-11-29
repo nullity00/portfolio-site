@@ -7,6 +7,14 @@ description: "Understanding the DKG process with multi-curve architecture, polyn
 
 # DKG Process
 
+## Table of Contents
+
+1. [PVSS (Publicly Verifiable Secret Sharing) Explanation](#pvss-publicly-verifiable-secret-sharing-explanation)
+2. [What Every Validator Must Share](#what-every-validator-must-share)
+3. [Share Reception and Decryption](#share-reception-and-decryption)
+4. [Mathematical Properties](#mathematical-properties)
+5. [Security Considerations](#security-considerations)
+
 **All validators generate and share** key shares with everyone else.
 
 Multi-Curve Architecture Summary:

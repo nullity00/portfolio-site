@@ -4,6 +4,8 @@ import Link from 'next/link'
 import Navigation from '../../components/Navigation'
 import { getContentData, getAllContentSlugs } from '../../../lib/content'
 import '../../markdown.css'
+import 'katex/dist/katex.min.css'
+import 'highlight.js/styles/github-dark.css'
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -74,19 +76,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 ← Back to Blog
               </Link>
             </div>
-
-            {/* Article Header */}
-            <header className="mb-8">
-              <h1 className="text-3xl font-bold text-white mb-4">
-                {post.title}
-              </h1>
-
-              {post.description && (
-                <p className="text-lg text-white/50 leading-relaxed">
-                  {post.description}
-                </p>
-              )}
-            </header>
 
             {/* Article Content */}
             <div className="prose prose-invert max-w-none">
